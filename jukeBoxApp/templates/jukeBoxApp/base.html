@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Juke Box</title>
+</head>
+<body>
+    <h1>Juke Box</h1>
+    <nav>
+        <a href="{% url 'index' %}">Inicio</a> |
+        <a href="{% url 'banda_lista' %}">Bandas</a> |
+        <a href="{% url 'estilo_lista' %}">Estilos</a> |
+        <a href="{% url 'pais_lista' %}">Países</a>
+    </nav>
+    <hr>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,11 @@
+{% extends "jukeBoxApp/base.html" %}
+
+{% block content %}
+<h2>Países</h2>
+
+<ul>
+{% for pais in paises %}
+    <li><a href="{% url 'pais_detalle' pais.id %}">{{ pais.nombre }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}

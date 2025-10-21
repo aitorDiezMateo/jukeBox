@@ -1,0 +1,11 @@
+{% extends "jukeBoxApp/base.html" %}
+
+{% block content %}
+<h2>Estilos Musicales</h2>
+
+<ul>
+{% for estilo in estilos %}
+    <li><a href="{% url 'estilo_detalle' estilo.id %}">{{ estilo.nombre }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}

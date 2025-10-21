@@ -1,0 +1,17 @@
+{% extends "jukeBoxApp/base.html" %}
+
+{% block content %}
+<h2>{{ estilo.nombre }}</h2>
+
+<p><strong>Descripción:</strong></p>
+<p>{{ estilo.descripcion }}</p>
+
+<p><strong>Bandas de este estilo:</strong></p>
+<ul>
+{% for banda in estilo.banda_set.all %}
+    <li><a href="{% url 'banda_detalle' banda.id %}">{{ banda.nombre }}</a></li>
+{% endfor %}
+</ul>
+
+<p><a href="{% url 'estilo_lista' %}">Volver a estilos</a></p>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "jukeBoxApp/base.html" %}
+
+{% block content %}
+<h2>{{ banda.nombre }}</h2>
+
+<p><strong>País:</strong> <a href="{% url 'pais_detalle' banda.pais_origen.id %}">{{ banda.pais_origen.nombre }}</a></p>
+<p><strong>Año de formación:</strong> {{ banda.anio_formacion }}</p>
+
+<p><strong>Estilos:</strong></p>
+<ul>
+{% for estilo in banda.estilos.all %}
+    <li><a href="{% url 'estilo_detalle' estilo.id %}">{{ estilo.nombre }}</a></li>
+{% endfor %}
+</ul>
+
+<p><strong>Descripción:</strong></p>
+<p>{{ banda.descripcion }}</p>
+
+<p><a href="{% url 'banda_lista' %}">Volver a bandas</a></p>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "jukeBoxApp/base.html" %}
+
+{% block content %}
+<h2>{{ pais.nombre }} ({{ pais.codigo }})</h2>
+
+<p><strong>Bandas de este país:</strong></p>
+<ul>
+{% for banda in pais.banda_set.all %}
+    <li><a href="{% url 'banda_detalle' banda.id %}">{{ banda.nombre }}</a> ({{ banda.anio_formacion }})</li>
+{% endfor %}
+</ul>
+
+<p><a href="{% url 'pais_lista' %}">Volver a países</a></p>
+{% endblock %}

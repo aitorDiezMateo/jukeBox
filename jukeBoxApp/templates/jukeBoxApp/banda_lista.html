@@ -1,0 +1,14 @@
+{% extends "jukeBoxApp/base.html" %}
+
+{% block content %}
+<h2>Lista de Bandas</h2>
+
+<ul>
+{% for banda in bandas %}
+    <li>
+        <strong><a href="{% url 'banda_detalle' banda.id %}">{{ banda.nombre }}</a></strong>
+        - <a href="{% url 'pais_detalle' banda.pais_origen.id %}">{{ banda.pais_origen.nombre }}</a>
+    </li>
+{% endfor %}
+</ul>
+{% endblock %}

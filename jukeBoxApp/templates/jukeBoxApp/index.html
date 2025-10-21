@@ -1,0 +1,14 @@
+{% extends "jukeBoxApp/base.html" %}
+
+{% block content %}
+<h2>Portada - Una banda por país</h2>
+
+<ul>
+{% for banda in bandas_destacadas %}
+    <li>
+        <strong><a href="{% url 'banda_detalle' banda.id %}">{{ banda.nombre }}</a></strong>
+        - {{ banda.pais_origen.nombre }} ({{ banda.anio_formacion }})
+    </li>
+{% endfor %}
+</ul>
+{% endblock %}
