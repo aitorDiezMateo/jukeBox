@@ -1,18 +1,150 @@
 <!DOCTYPE html>
 <html>
 <head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Juke Box</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'img/core-img/favicon.ico' %}">
+
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/one-music-icon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/classy-nav.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/audioplayer.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    <h1>Juke Box</h1>
+    {% load static %}
+    <!-- Preloader -->
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <!-- <h1 style="color: blue;">Juke Box</h1>
     <nav>
         <a href="{% url 'index' %}">Inicio</a> |
         <a href="{% url 'banda_lista' %}">Bandas</a> |
         <a href="{% url 'estilo_lista' %}">Estilos</a> |
         <a href="{% url 'pais_lista' %}">Países</a>
-    </nav>
-    <hr>
+    </nav> -->
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+        <!-- Navbar Area -->
+        <div class="oneMusic-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <!-- Menu -->
+                    <nav class="classy-navbar justify-content-between" id="oneMusicNav">
+
+                        <!-- Nav brand -->
+                        <a href="{% url 'index' %}" class="nav-brand"><img src="{% static 'img/core-img/logo.png' %}" alt="Logo de Juke Box"></a>
+
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+
+                        <!-- Menu -->
+                        <div class="classy-menu">
+
+                            <!-- Close Button -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <!-- Nav Start -->
+                            <div class="classynav">
+                                <ul>
+                                    <li><a href="{% url 'index' %}">Inicio</a></li>
+                                    <li><a href="{% url 'banda_lista' %}">Bandas</a></li>
+                                    <li><a href="{% url 'estilo_lista' %}">Estilo</a></li>
+                                    <li><a href="{% url 'pais_lista' %}">Países</a></li>
+                                </ul>
+
+                                <!-- Login/Register & Cart Button -->
+                                <!-- <div class="login-register-cart-button d-flex align-items-center"> -->
+                                    <!-- Login/Register -->
+                                    <!-- <div class="login-register-btn mr-50">
+                                        <a href="login.html" id="loginBtn">Login / Register</a>
+                                    </div> -->
+
+                                    <!-- Cart Button -->
+                                    <!-- <div class="cart-btn">
+                                        <p><span class="icon-shopping-cart"></span> <span class="quantity">1</span></p>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <!-- Nav End -->
+
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+
+    <!-- ##### Breadcumb Area Start ##### -->
+    <section class="breadcumb-area bg-img bg-overlay" style="{% block breadcumb_style %}background-image: url({% static 'img/bg-img/breadcumb3.jpg' %});{% endblock %}">
+        <div class="bradcumbContent">
+            <p>{% block breadcumb_subtitle %}Descubre{% endblock %}</p>
+            <h2>{% block breadcumb_title %}Juke Box{% endblock %}</h2>
+        </div>
+    </section>
+    <!-- ##### Breadcumb Area End ##### -->
+
     {% block content %}
     {% endblock %}
+
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer-area">
+        <div class="container">
+            <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-12 col-md-6">
+                    <a href="{% url 'index' %}"><img src="{% static 'img/core-img/logo.png' %}" alt="Juke Box"></a>
+                    <p class="copywrite-text">
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> Juke Box. 
+                        Todos los derechos reservados | Hecho con <i class="fa fa-heart-o" aria-hidden="true"></i> por Aitor Diez, Iñigo Peña, Iñigo Eguiluz y Mateo Perez
+                    </p>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <div class="footer-nav">
+                        <ul>
+                            <li><a href="{% url 'index' %}">Inicio</a></li>
+                            <li><a href="{% url 'banda_lista' %}">Bandas</a></li>
+                            <li><a href="{% url 'estilo_lista' %}">Estilos</a></li>
+                            <li><a href="{% url 'pais_lista' %}">Países</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- ##### All Javascript Files ##### -->
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
+    <!-- Bootstrap -->
+    <script src="{% static 'js/bootstrap/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
+    <!-- All Plugins -->
+    <script src="{% static 'js/plugins/plugins.js' %}"></script>
+    <!-- Active -->
+    <script src="{% static 'js/active.js' %}"></script>
 </body>
 </html>

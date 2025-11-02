@@ -30,7 +30,11 @@ def estilo_lista(request):
 
 def estilo_detalle(request, pk):
     estilo = get_object_or_404(EstiloMusical, pk=pk)
-    return render(request, 'jukeBoxApp/estilo_detalle.html', {'estilo': estilo})
+    estilos_relacionados = EstiloMusical.objects.exclude(pk=pk)[:5]
+    return render(request, 'jukeBoxApp/estilo_detalle.html', {
+        'estilo': estilo,
+        'estilos_relacionados': estilos_relacionados
+    })
 
 def pais_lista(request):
     paises = Pais.objects.all()
@@ -38,4 +42,8 @@ def pais_lista(request):
 
 def pais_detalle(request, pk):
     pais = get_object_or_404(Pais, pk=pk)
-    return render(request, 'jukeBoxApp/pais_detalle.html', {'pais': pais})
+    paises_relacionados = Pais.objects.exclude(pk=pk)[:5]
+    return render(request, 'jukeBoxApp/pais_detalle.html', {
+        'pais': pais,
+        'paises_relacionados': paises_relacionados
+    })
