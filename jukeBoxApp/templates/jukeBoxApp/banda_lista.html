@@ -50,7 +50,11 @@
             <!-- Single Album -->
             <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item {{ banda.nombre.0|lower }}">
                 <div class="single-album">
-                    <img src="{% static 'img/bg-img/a1.jpg' %}" alt="{{ banda.nombre }}">
+                    {% if banda.imagen %}
+                        <img src="{{ banda.imagen.url }}" alt="{{ banda.nombre }}">
+                    {% else %}
+                        <img src="{% static 'img/bg-img/a1.jpg' %}" alt="{{ banda.nombre }}">
+                    {% endif %}
                     <div class="album-info">
                         <a href="{% url 'banda_detalle' banda.id %}">
                             <h5>{{ banda.nombre }}</h5>

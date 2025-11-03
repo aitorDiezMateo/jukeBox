@@ -16,7 +16,11 @@
                     
                     <!-- Band Image -->
                     <div class="band-thumbnail mb-50">
-                        <img src="{% static 'img/bg-img/a1.jpg' %}" alt="{{ banda.nombre }}">
+                        {% if banda.imagen %}
+                            <img src="{{ banda.imagen.url }}" alt="{{ banda.nombre }}">
+                        {% else %}
+                            <img src="{% static 'img/bg-img/a1.jpg' %}" alt="{{ banda.nombre }}">
+                        {% endif %}
                     </div>
 
                     <!-- Band Info Card -->

@@ -22,6 +22,7 @@ class Banda(models.Model):
     estilos = models.ManyToManyField(EstiloMusical)
     anio_formacion = models.IntegerField()
     descripcion = models.TextField()
+    imagen = models.ImageField(upload_to='bandas/', blank=True, null=True)
     
     def __str__(self):
         return self.nombre

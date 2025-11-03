@@ -15,7 +15,11 @@
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="single-event-area mb-30">
                     <div class="event-thumbnail">
-                        <img src="{% static 'img/bg-img/e1.jpg' %}" alt="{{ banda.nombre }}">
+                        {% if banda.imagen %}
+                            <img src="{{ banda.imagen.url }}" alt="{{ banda.nombre }}">
+                        {% else %}
+                            <img src="{% static 'img/bg-img/e1.jpg' %}" alt="{{ banda.nombre }}">
+                        {% endif %}
                     </div>
                     <div class="event-text">
                         <h4>{{ banda.nombre }}</h4>

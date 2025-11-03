@@ -1,0 +1,2 @@
+workon env1
+py manage.py runserver
