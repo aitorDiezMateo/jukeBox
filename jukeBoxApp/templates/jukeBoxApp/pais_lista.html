@@ -1,11 +1,65 @@
 {% extends "jukeBoxApp/base.html" %}
+{% load static %}
+
+{% block breadcumb_title %}Países{% endblock %}
+{% block breadcumb_subtitle %}Explora los países{% endblock %}
+{% block breadcumb_style %}background-image: url({% static 'img/bg-img/breadcumb3.jpg' %});{% endblock %}
 
 {% block content %}
-<h2>Países</h2>
+<!-- ##### Blog Area Start ##### -->
+<div class="blog-area section-padding-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-9">
+                {% for pais in paises %}
+                <!-- Single Post Start -->
+                <div id="pais-{{ pais.id }}" class="single-blog-post mb-100 wow fadeInUp" data-wow-delay="100ms">
+                    <!-- Post Thumb -->
+                    <div class="blog-post-thumb mt-30">
+                        <a href="{% url 'pais_detalle' pais.id %}"><img src="{% static 'img/bg-img/blog1.jpg' %}" alt="{{ pais.nombre }}"></a>
+                        <!-- Post Date -->
+                        <div class="post-date">
+                            <span>{{ pais.codigo }}</span>
+                            <span>País</span>
+                        </div>
+                    </div>
 
-<ul>
-{% for pais in paises %}
-    <li><a href="{% url 'pais_detalle' pais.id %}">{{ pais.nombre }}</a></li>
-{% endfor %}
-</ul>
+                    <!-- Blog Content -->
+                    <div class="blog-content">
+                        <!-- Post Title -->
+                        <a href="{% url 'pais_detalle' pais.id %}" class="post-title">{{ pais.nombre }}</a>
+                        <!-- Post Meta -->
+                        <div class="post-meta d-flex mb-30">
+                            <p class="post-author">Código: {{ pais.codigo }}</p>
+                            <p class="tags">{{ pais.banda_set.count }} bandas</p>
+                        </div>
+                        <!-- Post Excerpt -->
+                        <p>Descubre las bandas originarias de {{ pais.nombre }}. Explora la rica escena musical de este país y las bandas que han dejado huella en la historia de la música.</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-12 col-lg-3">
+                <div class="blog-sidebar-area">
+
+                    <!-- Widget Area - Todos los Países -->
+                    <div class="single-widget-area mb-30">
+                        <div class="widget-title">
+                            <h5>Todos los Países</h5>
+                        </div>
+                        <div class="widget-content">
+                            <ul>
+                                {% for pais in paises %}
+                                <li><a href="#pais-{{ pais.id }}">{{ pais.nombre }} ({{ pais.banda_set.count }})</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### Blog Area End ##### -->
 {% endblock %}

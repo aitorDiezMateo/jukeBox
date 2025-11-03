@@ -1,14 +1,34 @@
 {% extends "jukeBoxApp/base.html" %}
+{% load static %}
+
+{% block breadcumb_title %}Juke Box{% endblock %}
+{% block breadcumb_subtitle %}Bienvenido{% endblock %}
+{% block breadcumb_style %}background-image: url({% static 'img/bg-img/breadcumb3.jpg' %});{% endblock %}
 
 {% block content %}
-<h2>Portada - Una banda por país</h2>
-
-<ul>
-{% for banda in bandas_destacadas %}
-    <li>
-        <strong><a href="{% url 'banda_detalle' banda.id %}">{{ banda.nombre }}</a></strong>
-        - {{ banda.pais_origen.nombre }} ({{ banda.anio_formacion }})
-    </li>
-{% endfor %}
-</ul>
+<!-- Events Area -->
+<section class="events-area section-padding-100">
+    <div class="container">        
+        <div class="row">
+            {% for banda in bandas_destacadas %}
+            <!-- Single Event Area -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="single-event-area mb-30">
+                    <div class="event-thumbnail">
+                        <img src="{% static 'img/bg-img/e1.jpg' %}" alt="{{ banda.nombre }}">
+                    </div>
+                    <div class="event-text">
+                        <h4>{{ banda.nombre }}</h4>
+                        <div class="event-meta-data">
+                            <a href="{% url 'pais_detalle' banda.pais_origen.id %}" class="event-place">{{ banda.pais_origen.nombre }}</a>
+                            <a href="#" class="event-date">{{ banda.anio_formacion }}</a>
+                        </div>
+                        <a href="{% url 'banda_detalle' banda.id %}" class="btn see-more-btn">Ver Banda</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 {% endblock %}

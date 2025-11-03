@@ -1,14 +1,156 @@
 {% extends "jukeBoxApp/base.html" %}
+{% load static %}
+
+{% block breadcumb_title %}{{ pais.nombre }}{% endblock %}
+{% block breadcumb_subtitle %}País{% endblock %}
+{% block breadcumb_style %}background-image: url({% static 'img/bg-img/breadcumb3.jpg' %});{% endblock %}
 
 {% block content %}
-<h2>{{ pais.nombre }} ({{ pais.codigo }})</h2>
+<!-- Pais Details Area -->
+<section class="band-details-area section-padding-100">
+    <div class="container">
+        <div class="row">
+            <!-- Pais Info -->
+            <div class="col-12 col-lg-8">
+                <div class="band-details-content">
+                    
+                    <!-- Pais Image -->
+                    <div class="band-thumbnail mb-50">
+                        <img src="{% static 'img/bg-img/a3.jpg' %}" alt="{{ pais.nombre }}">
+                    </div>
 
-<p><strong>Bandas de este país:</strong></p>
-<ul>
-{% for banda in pais.banda_set.all %}
-    <li><a href="{% url 'banda_detalle' banda.id %}">{{ banda.nombre }}</a> ({{ banda.anio_formacion }})</li>
-{% endfor %}
-</ul>
+                    <!-- Pais Info Card -->
+                    <div class="band-info-card mb-50">
+                        <div class="row">
+                            <div class="col-12 col-md-6 mb-30">
+                                <div class="single-info-item">
+                                    <div class="info-icon">
+                                        <i class="fa fa-flag"></i>
+                                    </div>
+                                    <div class="info-content">
+                                        <h6>País</h6>
+                                        <p>{{ pais.nombre }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-30">
+                                <div class="single-info-item">
+                                    <div class="info-icon">
+                                        <i class="fa fa-code"></i>
+                                    </div>
+                                    <div class="info-content">
+                                        <h6>Código</h6>
+                                        <p>{{ pais.codigo }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-<p><a href="{% url 'pais_lista' %}">Volver a países</a></p>
+                    <!-- Description -->
+                    <div class="band-description mb-50">
+                        <h4 class="mb-30">Sobre {{ pais.nombre }}</h4>
+                        <p>{{ pais.nombre }} es la cuna de diversas bandas y artistas que han dejado su huella en la música mundial. Explora las bandas de este país y descubre su contribución a diferentes géneros musicales.</p>
+                    </div>
+
+                    <!-- Bandas Section -->
+                    <div class="band-styles mb-50">
+                        <h4 class="mb-30">Bandas de {{ pais.nombre }}</h4>
+                        <div class="styles-tags">
+                            {% for banda in pais.banda_set.all %}
+                            <a href="{% url 'banda_detalle' banda.id %}" class="style-tag">{{ banda.nombre }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Back Button -->
+                    <div class="back-to-list">
+                        <a href="{% url 'pais_lista' %}" class="btn oneMusic-btn">
+                            <i class="fa fa-angle-left"></i> Volver a Países
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-12 col-lg-4">
+                <div class="band-sidebar">
+                    
+                    <!-- Songs Widget -->
+                    <div class="new-hits-area mb-100">
+                        <div class="section-heading text-left mb-50">
+                            <p>Escucha ahora</p>
+                            <h5>Música de {{ pais.nombre }}</h5>
+                        </div>
+
+                        <!-- Single Song Item -->
+                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="100ms">
+                            <div class="first-part d-flex align-items-center">
+                                <div class="thumbnail">
+                                    <img src="{% static 'img/bg-img/wt10.jpg' %}" alt="Canción 1">
+                                </div>
+                                <div class="content-">
+                                    <h6>{{ pais.nombre }}</h6>
+                                    <p>Canción 1</p>
+                                </div>
+                            </div>
+                            <audio preload="auto" controls>
+                                <source src="{% static 'audio/dummy-audio.mp3' %}">
+                            </audio>
+                        </div>
+
+                        <!-- Single Song Item -->
+                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="150ms">
+                            <div class="first-part d-flex align-items-center">
+                                <div class="thumbnail">
+                                    <img src="{% static 'img/bg-img/wt11.jpg' %}" alt="Canción 2">
+                                </div>
+                                <div class="content-">
+                                    <h6>{{ pais.nombre }}</h6>
+                                    <p>Canción 2</p>
+                                </div>
+                            </div>
+                            <audio preload="auto" controls>
+                                <source src="{% static 'audio/dummy-audio.mp3' %}">
+                            </audio>
+                        </div>
+
+                        <!-- Single Song Item -->
+                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="200ms">
+                            <div class="first-part d-flex align-items-center">
+                                <div class="thumbnail">
+                                    <img src="{% static 'img/bg-img/wt12.jpg' %}" alt="Canción 3">
+                                </div>
+                                <div class="content-">
+                                    <h6>{{ pais.nombre }}</h6>
+                                    <p>Canción 3</p>
+                                </div>
+                            </div>
+                            <audio preload="auto" controls>
+                                <source src="{% static 'audio/dummy-audio.mp3' %}">
+                            </audio>
+                        </div>
+                    </div>
+                    
+                    <!-- Related Countries Widget -->
+                    <div class="single-widget-area mb-30">
+                        <div class="widget-title">
+                            <h5>Otros países</h5>
+                        </div>
+                        <div class="widget-content">
+                            <ul>
+                                {% for otro_pais in paises_relacionados %}
+                                    {% if otro_pais.id != pais.id %}
+                                    <li><a href="{% url 'pais_detalle' otro_pais.id %}">{{ otro_pais.nombre }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

@@ -1,11 +1,65 @@
 {% extends "jukeBoxApp/base.html" %}
+{% load static %}
+
+{% block breadcumb_title %}Estilos Musicales{% endblock %}
+{% block breadcumb_subtitle %}Explora los estilos{% endblock %}
+{% block breadcumb_style %}background-image: url({% static 'img/bg-img/breadcumb3.jpg' %});{% endblock %}
 
 {% block content %}
-<h2>Estilos Musicales</h2>
+<!-- ##### Blog Area Start ##### -->
+<div class="blog-area section-padding-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-9">
+                {% for estilo in estilos %}
+                <!-- Single Post Start -->
+                <div id="estilo-{{ estilo.id }}" class="single-blog-post mb-100 wow fadeInUp" data-wow-delay="100ms">
+                    <!-- Post Thumb -->
+                    <div class="blog-post-thumb mt-30">
+                        <a href="{% url 'estilo_detalle' estilo.id %}"><img src="{% static 'img/bg-img/blog1.jpg' %}" alt="{{ estilo.nombre }}"></a>
+                        <!-- Post Date -->
+                        <div class="post-date">
+                            <span>{{ forloop.counter }}</span>
+                            <span>Estilo</span>
+                        </div>
+                    </div>
 
-<ul>
-{% for estilo in estilos %}
-    <li><a href="{% url 'estilo_detalle' estilo.id %}">{{ estilo.nombre }}</a></li>
-{% endfor %}
-</ul>
+                    <!-- Blog Content -->
+                    <div class="blog-content">
+                        <!-- Post Title -->
+                        <a href="{% url 'estilo_detalle' estilo.id %}" class="post-title">{{ estilo.nombre }}</a>
+                        <!-- Post Meta -->
+                        <div class="post-meta d-flex mb-30">
+                            <p class="post-author">Género Musical</p>
+                            <p class="tags">{{ estilo.banda_set.count }} bandas</p>
+                        </div>
+                        <!-- Post Excerpt -->
+                        <p>{{ estilo.descripcion|default:"Descubre las bandas de este estilo musical. Explora la diversidad y riqueza de este género que ha marcado la historia de la música." }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-12 col-lg-3">
+                <div class="blog-sidebar-area">
+
+                    <!-- Widget Area - Todos los Estilos -->
+                    <div class="single-widget-area mb-30">
+                        <div class="widget-title">
+                            <h5>Todos los Estilos</h5>
+                        </div>
+                        <div class="widget-content">
+                            <ul>
+                                {% for estilo in estilos %}
+                                <li><a href="#estilo-{{ estilo.id }}">{{ estilo.nombre }} ({{ estilo.banda_set.count }})</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### Blog Area End ##### -->
 {% endblock %}

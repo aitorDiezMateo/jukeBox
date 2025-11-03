@@ -1,14 +1,66 @@
 {% extends "jukeBoxApp/base.html" %}
+{% load static %}
+
+{% block breadcumb_title %}Lista de Bandas{% endblock %}
+{% block breadcumb_subtitle %}Explora las bandas{% endblock %}
+{% block breadcumb_style %}background-image: url({% static 'img/bg-img/breadcumb3.jpg' %});{% endblock %}
 
 {% block content %}
-<h2>Lista de Bandas</h2>
+<!-- ##### Album Catagory Area Start ##### -->
+<section class="album-catagory section-padding-100-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="browse-by-catagories catagory-menu d-flex flex-wrap align-items-center mb-70">
+                    <a href="#" data-filter="*">Todas</a>
+                    <a href="#" data-filter=".a" class="active">A</a>
+                    <a href="#" data-filter=".b">B</a>
+                    <a href="#" data-filter=".c">C</a>
+                    <a href="#" data-filter=".d">D</a>
+                    <a href="#" data-filter=".e">E</a>
+                    <a href="#" data-filter=".f">F</a>
+                    <a href="#" data-filter=".g">G</a>
+                    <a href="#" data-filter=".h">H</a>
+                    <a href="#" data-filter=".i">I</a>
+                    <a href="#" data-filter=".j">J</a>
+                    <a href="#" data-filter=".k">K</a>
+                    <a href="#" data-filter=".l">L</a>
+                    <a href="#" data-filter=".m">M</a>
+                    <a href="#" data-filter=".n">N</a>
+                    <a href="#" data-filter=".ñ">Ñ</a>
+                    <a href="#" data-filter=".o">O</a>
+                    <a href="#" data-filter=".p">P</a>
+                    <a href="#" data-filter=".q">Q</a>
+                    <a href="#" data-filter=".r">R</a>
+                    <a href="#" data-filter=".s">S</a>
+                    <a href="#" data-filter=".t">T</a>
+                    <a href="#" data-filter=".u">U</a>
+                    <a href="#" data-filter=".v">V</a>
+                    <a href="#" data-filter=".w">W</a>
+                    <a href="#" data-filter=".x">X</a>
+                    <a href="#" data-filter=".y">Y</a>
+                    <a href="#" data-filter=".z">Z</a>
+                    <a href="#" data-filter=".number">0-9</a>
+                </div>
+            </div>
+        </div>
 
-<ul>
-{% for banda in bandas %}
-    <li>
-        <strong><a href="{% url 'banda_detalle' banda.id %}">{{ banda.nombre }}</a></strong>
-        - <a href="{% url 'pais_detalle' banda.pais_origen.id %}">{{ banda.pais_origen.nombre }}</a>
-    </li>
-{% endfor %}
-</ul>
+        <div class="row oneMusic-albums">
+            {% for banda in bandas %}
+            <!-- Single Album -->
+            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item {{ banda.nombre.0|lower }}">
+                <div class="single-album">
+                    <img src="{% static 'img/bg-img/a1.jpg' %}" alt="{{ banda.nombre }}">
+                    <div class="album-info">
+                        <a href="{% url 'banda_detalle' banda.id %}">
+                            <h5>{{ banda.nombre }}</h5>
+                        </a>
+                        <p>{{ banda.pais_origen.nombre }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 {% endblock %}
