@@ -16,7 +16,13 @@
                 <div id="pais-{{ pais.id }}" class="single-blog-post mb-100 wow fadeInUp" data-wow-delay="100ms">
                     <!-- Post Thumb -->
                     <div class="blog-post-thumb mt-30">
-                        <a href="{% url 'pais_detalle' pais.id %}"><img src="{% static 'img/bg-img/blog1.jpg' %}" alt="{{ pais.nombre }}"></a>
+                        <a href="{% url 'pais_detalle' pais.id %}">
+                            {% if pais.imagen %}
+                                <img src="{{ pais.imagen.url }}" alt="{{ pais.nombre }}">
+                            {% else %}
+                                <img src="{% static 'img/bg-img/blog1.jpg' %}" alt="{{ pais.nombre }}">
+                            {% endif %}
+                        </a>
                         <!-- Post Date -->
                         <div class="post-date">
                             <span>{{ pais.codigo }}</span>

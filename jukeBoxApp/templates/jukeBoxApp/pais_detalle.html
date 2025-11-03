@@ -16,7 +16,11 @@
                     
                     <!-- Pais Image -->
                     <div class="band-thumbnail mb-50">
-                        <img src="{% static 'img/bg-img/a3.jpg' %}" alt="{{ pais.nombre }}">
+                        {% if pais.imagen %}
+                            <img src="{{ pais.imagen.url }}" alt="{{ pais.nombre }}">
+                        {% else %}
+                            <img src="{% static 'img/bg-img/a3.jpg' %}" alt="{{ pais.nombre }}">
+                        {% endif %}
                     </div>
 
                     <!-- Pais Info Card -->
@@ -84,53 +88,33 @@
                             <h5>Música de {{ pais.nombre }}</h5>
                         </div>
 
-                        <!-- Single Song Item -->
-                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="100ms">
-                            <div class="first-part d-flex align-items-center">
-                                <div class="thumbnail">
-                                    <img src="{% static 'img/bg-img/wt10.jpg' %}" alt="Canción 1">
+                        {% if canciones %}
+                            {% for cancion in canciones %}
+                            <!-- Single Song Item -->
+                            <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="{{ forloop.counter }}00ms">
+                                <div class="first-part d-flex align-items-center">
+                                    <div class="thumbnail">
+                                        {% if cancion.banda.imagen %}
+                                            <img src="{{ cancion.banda.imagen.url }}" alt="{{ cancion.titulo }}">
+                                        {% else %}
+                                            <img src="{% static 'img/bg-img/wt10.jpg' %}" alt="{{ cancion.titulo }}">
+                                        {% endif %}
+                                    </div>
+                                    <div class="content-">
+                                        <h6>{{ cancion.titulo }}</h6>
+                                        <p>{{ cancion.banda.nombre }} ({{ cancion.anio_publicacion }})</p>
+                                    </div>
                                 </div>
-                                <div class="content-">
-                                    <h6>{{ pais.nombre }}</h6>
-                                    <p>Canción 1</p>
-                                </div>
+                                {% if cancion.archivo_audio %}
+                                <audio preload="auto" controls>
+                                    <source src="{{ cancion.archivo_audio.url }}">
+                                </audio>
+                                {% endif %}
                             </div>
-                            <audio preload="auto" controls>
-                                <source src="{% static 'audio/dummy-audio.mp3' %}">
-                            </audio>
-                        </div>
-
-                        <!-- Single Song Item -->
-                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="150ms">
-                            <div class="first-part d-flex align-items-center">
-                                <div class="thumbnail">
-                                    <img src="{% static 'img/bg-img/wt11.jpg' %}" alt="Canción 2">
-                                </div>
-                                <div class="content-">
-                                    <h6>{{ pais.nombre }}</h6>
-                                    <p>Canción 2</p>
-                                </div>
-                            </div>
-                            <audio preload="auto" controls>
-                                <source src="{% static 'audio/dummy-audio.mp3' %}">
-                            </audio>
-                        </div>
-
-                        <!-- Single Song Item -->
-                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="200ms">
-                            <div class="first-part d-flex align-items-center">
-                                <div class="thumbnail">
-                                    <img src="{% static 'img/bg-img/wt12.jpg' %}" alt="Canción 3">
-                                </div>
-                                <div class="content-">
-                                    <h6>{{ pais.nombre }}</h6>
-                                    <p>Canción 3</p>
-                                </div>
-                            </div>
-                            <audio preload="auto" controls>
-                                <source src="{% static 'audio/dummy-audio.mp3' %}">
-                            </audio>
-                        </div>
+                            {% endfor %}
+                        {% else %}
+                            <p>No hay canciones disponibles para este país.</p>
+                        {% endif %}
                     </div>
                     
                     <!-- Related Countries Widget -->
