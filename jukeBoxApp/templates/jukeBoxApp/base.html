@@ -98,12 +98,14 @@
     <!-- ##### Header Area End ##### -->
 
     <!-- ##### Breadcumb Area Start ##### -->
+    {% block breadcumb_area %}
     <section class="breadcumb-area bg-img bg-overlay" style="{% block breadcumb_style %}background-image: url({% static 'img/bg-img/breadcumb3.jpg' %});{% endblock %}">
         <div class="bradcumbContent">
             <p>{% block breadcumb_subtitle %}Descubre{% endblock %}</p>
             <h2>{% block breadcumb_title %}Juke Box{% endblock %}</h2>
         </div>
     </section>
+    {% endblock breadcumb_area %}
     <!-- ##### Breadcumb Area End ##### -->
 
     {% block content %}

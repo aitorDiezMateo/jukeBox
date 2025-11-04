@@ -1,11 +1,71 @@
 {% extends "jukeBoxApp/base.html" %}
 {% load static %}
 
-{% block breadcumb_title %}Juke Box{% endblock %}
-{% block breadcumb_subtitle %}Bienvenido{% endblock %}
-{% block breadcumb_style %}background-image: url({% static 'img/bg-img/breadcumb3.jpg' %});{% endblock %}
+{% block breadcumb_area %}
+{# No mostrar breadcrumb en la página de inicio #}
+{% endblock %}
 
 {% block content %}
+<!-- ##### Hero Area Start ##### -->
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+        <!-- Single Hero Slide -->
+        <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            <!-- Slide Img -->
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-1.jpg' %});"></div>
+            <!-- Slide Content -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="hero-slides-content text-center">
+                            <h6 data-animation="fadeInUp" data-delay="100ms">Bienvenido a</h6>
+                            <h2 data-animation="fadeInUp" data-delay="300ms">Juke Box <span>Tu música favorita</span></h2>
+                            <a data-animation="fadeInUp" data-delay="500ms" href="{% url 'banda_lista' %}" class="btn oneMusic-btn mt-50">Descubre Bandas <i class="fa fa-angle-double-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Single Hero Slide -->
+        <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            <!-- Slide Img -->
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-2.jpg' %});"></div>
+            <!-- Slide Content -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="hero-slides-content text-center">
+                            <h6 data-animation="fadeInUp" data-delay="100ms">Explora géneros</h6>
+                            <h2 data-animation="fadeInUp" data-delay="300ms">Estilos Musicales <span>Rock, Pop, Metal y más</span></h2>
+                            <a data-animation="fadeInUp" data-delay="500ms" href="{% url 'estilo_lista' %}" class="btn oneMusic-btn mt-50">Ver Estilos <i class="fa fa-angle-double-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Single Hero Slide -->
+        <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            <!-- Slide Img -->
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-3.jpg' %});"></div>
+            <!-- Slide Content -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="hero-slides-content text-center">
+                            <h6 data-animation="fadeInUp" data-delay="100ms">Música del mundo</h6>
+                            <h2 data-animation="fadeInUp" data-delay="300ms">Países <span>Bandas de todo el mundo</span></h2>
+                            <a data-animation="fadeInUp" data-delay="500ms" href="{% url 'pais_lista' %}" class="btn oneMusic-btn mt-50">Explorar Países <i class="fa fa-angle-double-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Hero Area End ##### -->
+
 <!-- Events Area -->
 <section class="events-area section-padding-100">
     <div class="container">        
