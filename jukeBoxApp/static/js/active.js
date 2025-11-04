@@ -191,6 +191,27 @@
         $('audio').audioPlayer();
     }
 
+    // Control de reproducción(Solo una canción a la vez)
+    document.addEventListener('play', function (event) {
+        if (event.target && event.target.tagName === 'AUDIO') {
+            var audios = document.getElementsByTagName('audio');
+            for (var i = 0; i < audios.length; i++) {
+                if (audios[i] !== event.target) {
+                    audios[i].pause();
+                    try { audios[i].currentTime = 0; } catch (e) { /* ignore */ }
+                    var wrapper = audios[i].closest ? audios[i].closest('.audioplayer') : null;
+                    if (wrapper && wrapper.classList) {
+                        wrapper.classList.remove('audioplayer-playing');
+                        var played = wrapper.querySelector('.audioplayer-bar-played');
+                        if (played) { played.style.width = '0%'; }
+                        var timeCurrent = wrapper.querySelector('.audioplayer-time-current');
+                        if (timeCurrent) { timeCurrent.textContent = '00:00'; }
+                    }
+                }
+            }
+        }
+    }, true);
+
     // :: 11.0 Tooltip Active Code
     if ($.fn.tooltip) {
         $('[data-toggle="tooltip"]').tooltip()
