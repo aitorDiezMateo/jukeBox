@@ -16,7 +16,11 @@
                     
                     <!-- Estilo Image -->
                     <div class="band-thumbnail mb-50">
-                        <img src="{% static 'img/bg-img/a2.jpg' %}" alt="{{ estilo.nombre }}">
+                        {% if estilo.imagen %}
+                            <img src="{{ estilo.imagen.url }}" alt="{{ estilo.nombre }}">
+                        {% else %}
+                            <img src="{% static 'img/bg-img/a2.jpg' %}" alt="{{ estilo.nombre }}">
+                        {% endif %}
                     </div>
 
                     <!-- Estilo Info Card -->
