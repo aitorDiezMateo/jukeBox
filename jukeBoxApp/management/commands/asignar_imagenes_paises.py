@@ -13,6 +13,7 @@ class Command(BaseCommand):
             'reino_unido.png': 'Reino Unido',
             'suecia.png': 'Suecia',
             'usa.png': 'Estados Unidos',
+            'puertoRico.jpg': 'Puerto Rico',
         }
 
         paises_actualizados = 0

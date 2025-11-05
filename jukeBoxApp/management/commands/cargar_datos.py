@@ -20,6 +20,7 @@ class Command(BaseCommand):
         suecia = Pais.objects.create(nombre="Suecia", codigo="SWE")
         argentina = Pais.objects.create(nombre="Argentina", codigo="ARG")
         jamaica = Pais.objects.create(nombre="Jamaica", codigo="JAM")
+        puerto_rico = Pais.objects.create(nombre="Puerto Rico", codigo="PRI")
 
         # Crear estilos musicales
         self.stdout.write('Creando estilos musicales...')
@@ -46,6 +47,14 @@ class Command(BaseCommand):
         indie = EstiloMusical.objects.create(
             nombre="Indie",
             descripcion="Música independiente con sonido alternativo y producción fuera de grandes sellos."
+        )
+        reggaeton = EstiloMusical.objects.create(
+            nombre="Reggaeton",
+            descripcion="Género de música urbana latina con ritmos derivados del dancehall y el hip hop."
+        )
+        trap = EstiloMusical.objects.create(
+            nombre="Trap",
+            descripcion="Subgénero del hip hop con ritmos sincopados y letras crudas, popular en la escena urbana latina."
         )
 
         # Crear bandas de España
@@ -163,6 +172,15 @@ class Command(BaseCommand):
             descripcion="La banda más importante de reggae, liderada por Bob Marley, llevó el reggae a nivel mundial."
         )
         marley.estilos.add(reggae)
+
+        self.stdout.write('Creando artistas de Puerto Rico...')
+        bad_bunny = Banda.objects.create(
+            nombre="Bad Bunny",
+            pais_origen=puerto_rico,
+            anio_formacion=2016,
+            descripcion="Artista global que ha redefinido la música urbana y la cultura latina contemporánea."
+        )
+        bad_bunny.estilos.add(reggaeton, trap)
 
         self.stdout.write(self.style.SUCCESS('\n¡Datos cargados exitosamente!'))
         self.stdout.write(f'Países: {Pais.objects.count()}')

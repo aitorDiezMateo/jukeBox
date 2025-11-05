@@ -74,6 +74,11 @@ class Command(BaseCommand):
                 ('Maldito Duende', 1989, 'HeroesDelSilencio_MalditoDuende.mp3'),
                 ('La Sirena Varada', 1993, 'HeroesDelSilencio_LaSirenaVarada.mp3'),
             ],
+            'Bad Bunny': [
+                ('Baile Inolvidable', 2020, 'BadBunny_BaileInolvidable.mp3'),
+                ('Dakiti', 2020, 'BadBunny_Dakiti.mp3'),
+                ('La Santa', 2020, 'BadBunny_LaSanta.mp3'),
+            ],
         }
 
         canciones_creadas = 0

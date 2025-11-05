@@ -22,6 +22,7 @@ class Command(BaseCommand):
             'sondaStereo.png': 'Soda Stereo',
             'TheBeatles.png': 'The Beatles',
             'theClash.png': 'The Clash',
+            'badBunny.jpg': 'Bad Bunny',
         }
 
         bandas_actualizadas = 0
