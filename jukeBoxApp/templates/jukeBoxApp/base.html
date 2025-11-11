@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="{% static 'css/animate.css' %}">
     <link rel="stylesheet" href="{% static 'css/audioplayer.css' %}">
     <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/favoritos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reproductor.css' %}">
 </head>
 <body>
     {% load static %}
@@ -72,20 +74,18 @@
                                     <li><a href="{% url 'banda_lista' %}">Bandas</a></li>
                                     <li><a href="{% url 'estilo_lista' %}">Estilo</a></li>
                                     <li><a href="{% url 'pais_lista' %}">Países</a></li>
+                                    <li><a href="{% url 'favoritos' %}">Favoritos</a></li>
                                 </ul>
 
-                                <!-- Login/Register & Cart Button -->
-                                <!-- <div class="login-register-cart-button d-flex align-items-center"> -->
-                                    <!-- Login/Register -->
-                                    <!-- <div class="login-register-btn mr-50">
-                                        <a href="login.html" id="loginBtn">Login / Register</a>
-                                    </div> -->
-
-                                    <!-- Cart Button -->
-                                    <!-- <div class="cart-btn">
-                                        <p><span class="icon-shopping-cart"></span> <span class="quantity">1</span></p>
+                                <!-- Contador de Favoritos -->
+                                <div class="login-register-cart-button d-flex align-items-center">
+                                    <div class="favoritos-badge">
+                                        <a href="{% url 'favoritos' %}" title="Mis Favoritos">
+                                            <i class="fa fa-heart"></i>
+                                            <span class="favoritos-counter">0</span>
+                                        </a>
                                     </div>
-                                </div> -->
+                                </div>
                             </div>
                             <!-- Nav End -->
 
@@ -148,5 +148,9 @@
     <script src="{% static 'js/plugins/plugins.js' %}"></script>
     <!-- Active -->
     <script src="{% static 'js/active.js' %}"></script>
+    <!-- Favoritos -->
+    <script src="{% static 'js/favoritos.js' %}"></script>
+    <!-- Reproductor -->
+    <script src="{% static 'js/reproductor.js' %}"></script>
 </body>
 </html>

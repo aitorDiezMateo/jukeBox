@@ -9,4 +9,6 @@ urlpatterns = [
     path('estilo/<int:pk>/', views.estilo_detalle, name='estilo_detalle'),
     path('paises/', views.pais_lista, name='pais_lista'),
     path('pais/<int:pk>/', views.pais_detalle, name='pais_detalle'),
+    path('favoritos/', views.favoritos, name='favoritos'),
+    path('api/canciones-favoritos/', views.api_canciones_favoritos, name='api_canciones_favoritos'),
 ]

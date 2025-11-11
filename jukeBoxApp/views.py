@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
 from .models import Banda, EstiloMusical, Pais, Cancion
 
 # Create your views here.
@@ -67,3 +68,41 @@ def pais_detalle(request, pk):
         'paises_relacionados': paises_relacionados,
         'canciones': canciones
     })
+
+def favoritos(request):
+    # La página de favoritos se maneja completamente con JavaScript y localStorage
+    # Esta vista solo renderiza la plantilla
+    return render(request, 'jukeBoxApp/favoritos.html')
+
+def api_canciones_favoritos(request):
+    # API para obtener canciones de bandas favoritas
+    ids = request.GET.get('ids', '')
+    
+    if not ids:
+        return JsonResponse({'canciones': []})
+    
+    try:
+        # Convertir IDs a lista de enteros
+        banda_ids = [int(id.strip()) for id in ids.split(',') if id.strip()]
+        
+        # Obtener canciones de esas bandas
+        canciones = Cancion.objects.filter(
+            banda__id__in=banda_ids,
+            archivo_audio__isnull=False
+        ).select_related('banda')[:50]  # Límite de 50 canciones
+        
+        # Convertir a formato JSON
+        canciones_data = []
+        for cancion in canciones:
+            canciones_data.append({
+                'titulo': cancion.titulo,
+                'banda': cancion.banda.nombre,
+                'imagen': cancion.banda.imagen.url if cancion.banda.imagen else '',
+                'archivo': cancion.archivo_audio.url if cancion.archivo_audio else '',
+                'duracion': '3:45'  # Podrías calcular esto del archivo
+            })
+        
+        return JsonResponse(canciones_data, safe=False)
+    
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=400)

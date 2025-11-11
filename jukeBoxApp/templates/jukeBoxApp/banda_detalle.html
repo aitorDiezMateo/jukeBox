@@ -67,6 +67,20 @@
                         </div>
                     </div>
 
+                    <!-- Botón de Favoritos -->
+                    <div class="mb-50">
+                        <button class="btn-favorito btn-favorito-detalle" 
+                                data-banda-id="{{ banda.id }}"
+                                data-banda-nombre="{{ banda.nombre }}"
+                                data-banda-pais="{{ banda.pais_origen.nombre }}"
+                                data-banda-imagen="{% if banda.imagen %}{{ banda.imagen.url }}{% else %}{% static 'img/bg-img/a1.jpg' %}{% endif %}"
+                                data-banda-url="{% url 'banda_detalle' banda.id %}"
+                                title="Agregar a favoritos">
+                            <i class="fa fa-heart-o"></i>
+                            <span>Agregar a Favoritos</span>
+                        </button>
+                    </div>
+
                     <!-- Back Button -->
                     <div class="back-to-list">
                         <a href="{% url 'banda_lista' %}" class="btn oneMusic-btn">

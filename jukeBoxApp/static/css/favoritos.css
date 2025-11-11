@@ -1,0 +1,296 @@
+/* ============================
+   Estilos para Sistema de Favoritos
+   ============================ */
+
+/* Botón de Favoritos */
+.btn-favorito {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 10;
+}
+
+.btn-favorito i {
+    font-size: 20px;
+    color: #000;
+    transition: all 0.3s ease;
+}
+
+.btn-favorito:hover i {
+    transform: scale(1.2);
+    color: #ff0000;
+}
+
+.btn-favorito.is-favorite i {
+    color: #ff0000;
+}
+
+/* Botón de favorito en overlay sobre imagen */
+.album-thumb-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-favorito-overlay {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.single-album:hover .btn-favorito-overlay {
+    opacity: 1;
+}
+
+.btn-favorito-overlay:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+}
+
+/* Botón de favorito en detalle de banda */
+.btn-favorito-detalle {
+    display: inline-block;
+    background-color: #fff;
+    border: 2px solid #000;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-favorito-detalle i {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+.btn-favorito-detalle:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+.btn-favorito-detalle:hover i {
+    color: #fff;
+}
+
+.btn-favorito-detalle.is-favorite {
+    background-color: #ff0000;
+    border-color: #ff0000;
+    color: #fff;
+}
+
+.btn-favorito-detalle.is-favorite i {
+    color: #fff;
+}
+
+.btn-favorito-detalle.is-favorite:hover {
+    background-color: #cc0000;
+    border-color: #cc0000;
+}
+
+/* Animación de pulso */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.3);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pulse-animation {
+    animation: pulse 0.6s ease;
+}
+
+/* Contador de favoritos en navbar */
+.favoritos-badge {
+    position: relative;
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.favoritos-badge a {
+    color: #fff;
+    font-size: 20px;
+    position: relative;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.favoritos-badge a:hover {
+    color: rgba(255, 255, 255, 0.7);
+    transform: scale(1.1);
+}
+
+.favoritos-counter {
+    position: absolute;
+    top: -8px;
+    right: -12px;
+    background-color: #ff0000;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    min-width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 0 6px;
+    line-height: 20px;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Notificaciones */
+.favoritos-notification {
+    position: fixed;
+    top: 100px;
+    right: 30px;
+    background: #fff;
+    padding: 15px 25px;
+    border-radius: 4px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 9999;
+    transform: translateX(400px);
+    transition: all 0.3s ease;
+    border-left: 4px solid #000;
+}
+
+.favoritos-notification.show {
+    transform: translateX(0);
+}
+
+.favoritos-notification.success {
+    border-left-color: #28a745;
+}
+
+.favoritos-notification.success i {
+    color: #28a745;
+}
+
+.favoritos-notification.info {
+    border-left-color: #17a2b8;
+}
+
+.favoritos-notification.info i {
+    color: #17a2b8;
+}
+
+.favoritos-notification i {
+    font-size: 20px;
+}
+
+.favoritos-notification span {
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+}
+
+/* Página de Favoritos */
+.pagina-favoritos .favoritos-container {
+    min-height: 400px;
+    padding-bottom: 100px;
+}
+
+.no-favoritos {
+    padding: 80px 20px;
+    margin-bottom: 100px;
+}
+
+.no-favoritos i {
+    font-size: 120px;
+    color: #d8d8d8;
+    margin-bottom: 30px;
+    display: block;
+}
+
+.no-favoritos h3 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: #000;
+}
+
+.no-favoritos p {
+    font-size: 16px;
+    color: #5f5f5f;
+    margin-bottom: 0;
+}
+
+/* Animación de entrada para favoritos */
+.favorito-item {
+    animation: fadeInUp 0.5s ease forwards;
+    opacity: 0;
+}
+
+.favorito-item:nth-child(1) { animation-delay: 0.1s; }
+.favorito-item:nth-child(2) { animation-delay: 0.2s; }
+.favorito-item:nth-child(3) { animation-delay: 0.3s; }
+.favorito-item:nth-child(4) { animation-delay: 0.4s; }
+.favorito-item:nth-child(5) { animation-delay: 0.5s; }
+.favorito-item:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media only screen and (max-width: 767px) {
+    .favoritos-notification {
+        right: 15px;
+        padding: 12px 20px;
+        max-width: calc(100% - 30px);
+    }
+    
+    .favoritos-badge {
+        margin-left: 15px;
+    }
+    
+    .btn-favorito-overlay {
+        opacity: 1;
+    }
+    
+    .no-favoritos i {
+        font-size: 80px;
+    }
+    
+    .no-favoritos h3 {
+        font-size: 22px;
+    }
+}
+
+/* Efecto hover mejorado para cards con favoritos */
+.single-album {
+    transition: all 0.3s ease;
+}
+
+.single-album:hover {
+    transform: translateY(-5px);
+}
