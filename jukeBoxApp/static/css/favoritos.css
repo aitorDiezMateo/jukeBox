@@ -284,6 +284,17 @@
     .no-favoritos h3 {
         font-size: 22px;
     }
+    
+    /* Centrar bandas en móvil */
+    .single-album-item {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .single-album {
+        max-width: 250px;
+        width: 100%;
+    }
 }
 
 /* Efecto hover mejorado para cards con favoritos */
