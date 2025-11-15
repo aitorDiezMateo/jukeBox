@@ -1,0 +1,7 @@
+/* Styles for the star rating UI */
+#star-rating { font-size: 28px; color: #f0ad4e; cursor: pointer; }
+.star { margin-right: 6px; transition: transform .08s ease; display: inline-block; }
+.star.hovered { transform: scale(1.12); }
+
+/* Ensure consistent alignment in different contexts */
+#star-rating .star { line-height: 1; }

@@ -1,0 +1,146 @@
+{% extends "jukeBoxApp/base.html" %}
+{% load static %}
+
+{% block breadcumb_title %}{{ cancion.titulo }}{% endblock %}
+{% block breadcumb_subtitle %}Ficha de la canción{% endblock %}
+{% block breadcumb_style %}background-image: url({% static 'img/bg-img/breadcumb3.jpg' %});{% endblock %}
+
+{% block content %}
+<div class="container section-padding-100">
+    <div class="row">
+        <div class="col-12 col-lg-8">
+            <h2>{{ cancion.titulo }}</h2>
+            <p><strong>Banda:</strong> <a href="{% url 'banda_detalle' cancion.banda.id %}">{{ cancion.banda.nombre }}</a></p>
+            <p><strong>Año:</strong> {{ cancion.anio_publicacion }}</p>
+
+            {% if cancion.archivo_audio %}
+            <audio controls style="width:100%;">
+                <source src="{{ cancion.archivo_audio.url }}">
+            </audio>
+            {% endif %}
+
+            
+            <h4>Deja tu valoración</h4>
+            <!-- Load CSS for rating -->
+            <link rel="stylesheet" href="{% static 'css/valoracion.css' %}">
+
+            <form method="post" id="valoracion-form">
+                {% csrf_token %}
+                <!-- Hidden input that will hold the numeric rating (1-5) -->
+                <input type="hidden" name="puntuacion" id="id_puntuacion" value="">
+
+                <!-- Star rating UI -->
+                <div id="star-rating" class="mb-2" aria-label="Valoración">
+                    <i class="fa fa-star-o star" data-value="1" aria-hidden="true"></i>
+                    <i class="fa fa-star-o star" data-value="2" aria-hidden="true"></i>
+                    <i class="fa fa-star-o star" data-value="3" aria-hidden="true"></i>
+                    <i class="fa fa-star-o star" data-value="4" aria-hidden="true"></i>
+                    <i class="fa fa-star-o star" data-value="5" aria-hidden="true"></i>
+                </div>
+
+                <h4>Dejanos tú opinión</h4>
+
+                <div class="form-group mt-2">
+                    {{ form.comentario }}
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar valoración</button>
+            </form>
+
+            <!-- Load JS for rating interaction -->
+            <script src="{% static 'js/valoracion.js' %}"></script>
+
+            <hr>
+
+            <h4>Valoraciones</h4>
+            {% if promedio %}
+                <p>Media: {{ promedio }} / 5</p>
+            {% endif %}
+
+            {% if valoraciones %}
+                <ul class="list-unstyled">
+                {% for v in valoraciones %}
+                    <li class="mb-3">
+                        <strong>{{ v.puntuacion }} / 5</strong> — <small>{{ v.creado|date:"Y-m-d H:i" }}</small>
+                        <p>{{ v.comentario|linebreaksbr }}</p>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>No hay valoraciones aún. Sé el primero en opinar.</p>
+            {% endif %}
+
+            <hr>
+
+
+            <style>
+                #star-rating { font-size: 28px; color: #f0ad4e; cursor: pointer; }
+                .star { margin-right: 6px; transition: transform .08s ease; }
+                .star.hovered { transform: scale(1.12); }
+                .star.filled:before { content: '\f005'; } /* fa-star */
+                .star.empty:before { content: '\f006'; } /* fa-star-o */
+                /* Use FontAwesome font for pseudo content */
+                .star:before { font-family: FontAwesome; }
+            </style>
+
+            <script>
+                (function(){
+                    const stars = document.querySelectorAll('#star-rating .star');
+                    const input = document.getElementById('id_puntuacion');
+                    let selected = 0;
+
+                    function setVisual(value){
+                        stars.forEach((s)=>{
+                            const v = parseInt(s.getAttribute('data-value'));
+                            if(v <= value){
+                                s.classList.add('filled');
+                                s.classList.remove('empty');
+                            } else {
+                                s.classList.add('empty');
+                                s.classList.remove('filled');
+                            }
+                        });
+                    }
+
+                    stars.forEach((star)=>{
+                        star.addEventListener('mouseover', function(){
+                            const v = parseInt(this.getAttribute('data-value'));
+                            setVisual(v);
+                            this.classList.add('hovered');
+                        });
+                        star.addEventListener('mouseout', function(){
+                            this.classList.remove('hovered');
+                            setVisual(selected);
+                        });
+                        star.addEventListener('click', function(){
+                            selected = parseInt(this.getAttribute('data-value'));
+                            input.value = selected;
+                            setVisual(selected);
+                        });
+                    });
+
+                    // Initialize as empty
+                    setVisual(0);
+
+                    // Validate before submit
+                    const form = document.getElementById('valoracion-form');
+                    form.addEventListener('submit', function(e){
+                        if(!input.value || parseInt(input.value) < 1){
+                            e.preventDefault();
+                            alert('Por favor selecciona una puntuación (1-5 estrellas) antes de enviar.');
+                        }
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="col-12 col-lg-4">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5>Sugerir una canción</h5>
+                    <p>¿Tienes una canción para proponer? <a href="{% url 'sugerir_cancion' %}">Hazla llegar aquí</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

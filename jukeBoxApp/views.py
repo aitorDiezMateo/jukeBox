@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
-from .models import Banda, EstiloMusical, Pais, Cancion
+from .models import Banda, EstiloMusical, Pais, Cancion, Valoracion, Sugerencia
+from .forms import ValoracionForm, SugerenciaForm
 
 # Create your views here.
 
@@ -73,6 +74,46 @@ def favoritos(request):
     # La página de favoritos se maneja completamente con JavaScript y localStorage
     # Esta vista solo renderiza la plantilla
     return render(request, 'jukeBoxApp/favoritos.html')
+
+
+def cancion_detalle(request, pk):
+    cancion = get_object_or_404(Cancion, pk=pk)
+    valoraciones = cancion.valoraciones.order_by('-creado')
+
+    # Calcular media de puntuaciones
+    puntuaciones = cancion.valoraciones.all().values_list('puntuacion', flat=True)
+    promedio = None
+    if puntuaciones:
+        promedio = round(sum(puntuaciones) / len(puntuaciones), 2)
+
+    if request.method == 'POST':
+        form = ValoracionForm(request.POST)
+        if form.is_valid():
+            valor = form.save(commit=False)
+            valor.cancion = cancion
+            valor.save()
+            return redirect('cancion_detalle', pk=cancion.pk)
+    else:
+        form = ValoracionForm()
+
+    return render(request, 'jukeBoxApp/cancion_detalle.html', {
+        'cancion': cancion,
+        'valoraciones': valoraciones,
+        'promedio': promedio,
+        'form': form,
+    })
+
+
+def sugerir_cancion(request):
+    if request.method == 'POST':
+        form = SugerenciaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('sugerir_cancion')
+    else:
+        form = SugerenciaForm()
+
+    return render(request, 'jukeBoxApp/sugerir_cancion.html', {'form': form})
 
 def api_canciones_favoritos(request):
     # API para obtener canciones de bandas favoritas

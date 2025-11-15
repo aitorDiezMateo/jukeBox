@@ -114,7 +114,7 @@
                                         {% endif %}
                                     </div>
                                     <div class="content-">
-                                        <h6>{{ cancion.titulo }}</h6>
+                                        <h6><a href="{% url 'cancion_detalle' cancion.id %}">{{ cancion.titulo }}</a></h6>
                                         <p>{{ banda.nombre }} ({{ cancion.anio_publicacion }})</p>
                                     </div>
                                 </div>
