@@ -1,8 +1,9 @@
 {% extends "jukeBoxApp/base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block breadcumb_title %}{{ banda.nombre }}{% endblock %}
-{% block breadcumb_subtitle %}Detalles de la banda{% endblock %}
+{% block breadcumb_subtitle %}{% trans "Detalles de la banda" %}{% endblock %}
 {% block breadcumb_style %}background-image: url({% static 'img/bg-img/breadcumb3.jpg' %});{% endblock %}
 
 {% block content %}
@@ -32,7 +33,7 @@
                                         <i class="fa fa-globe"></i>
                                     </div>
                                     <div class="info-content">
-                                        <h6>País de Origen</h6>
+                                        <h6>{% trans "País de Origen" %}</h6>
                                         <a href="{% url 'pais_detalle' banda.pais_origen.id %}">{{ banda.pais_origen.nombre }}</a>
                                     </div>
                                 </div>
@@ -43,7 +44,7 @@
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                     <div class="info-content">
-                                        <h6>Año de Formación</h6>
+                                        <h6>{% trans "Año de Formación" %}</h6>
                                         <p>{{ banda.anio_formacion }}</p>
                                     </div>
                                 </div>
@@ -53,13 +54,13 @@
 
                     <!-- Description -->
                     <div class="band-description mb-50">
-                        <h4 class="mb-30">Sobre la banda</h4>
+                        <h4 class="mb-30">{% trans "Sobre la banda" %}</h4>
                         <p>{{ banda.descripcion }}</p>
                     </div>
 
                     <!-- Styles Section -->
                     <div class="band-styles mb-50">
-                        <h4 class="mb-30">Estilos Musicales</h4>
+                        <h4 class="mb-30">{% trans "Estilos Musicales" %}</h4>
                         <div class="styles-tags">
                             {% for estilo in banda.estilos.all %}
                             <a href="{% url 'estilo_detalle' estilo.id %}" class="style-tag">{{ estilo.nombre }}</a>
@@ -75,16 +76,16 @@
                                 data-banda-pais="{{ banda.pais_origen.nombre }}"
                                 data-banda-imagen="{% if banda.imagen %}{{ banda.imagen.url }}{% else %}{% static 'img/bg-img/a1.jpg' %}{% endif %}"
                                 data-banda-url="{% url 'banda_detalle' banda.id %}"
-                                title="Agregar a favoritos">
+                                title="{% trans "Agregar a favoritos" %}">
                             <i class="fa fa-heart-o"></i>
-                            <span>Agregar a Favoritos</span>
+                            <span>{% trans "Agregar a Favoritos" %}</span>
                         </button>
                     </div>
 
                     <!-- Back Button -->
                     <div class="back-to-list">
                         <a href="{% url 'banda_lista' %}" class="btn oneMusic-btn">
-                            <i class="fa fa-angle-left"></i> Volver a Bandas
+                            <i class="fa fa-angle-left"></i> {% trans "Volver a Bandas" %}
                         </a>
                     </div>
 
@@ -97,8 +98,8 @@
                     <!-- Songs Widget -->
                     <div class="new-hits-area mb-100">
                         <div class="section-heading text-left mb-50">
-                            <p>Escucha ahora</p>
-                            <h5>Canciones destacadas</h5>
+                            <p>{% trans "Escucha ahora" %}</p>
+                            <h5>{% trans "Canciones destacadas" %}</h5>
                         </div>
 
                         {% if canciones %}
@@ -126,13 +127,13 @@
                             </div>
                             {% endfor %}
                         {% else %}
-                            <p>No hay canciones disponibles para esta banda.</p>
+                            <p>{% trans "No hay canciones disponibles para esta banda." %}</p>
                         {% endif %}
                     </div>
                     <!-- Related Bands Widget -->
                     <div class="single-widget-area mb-30">
                         <div class="widget-title">
-                            <h5>Bandas del mismo país</h5>
+                            <h5>{% trans "Bandas del mismo país" %}</h5>
                         </div>
                         <div class="widget-content">
                             <ul>

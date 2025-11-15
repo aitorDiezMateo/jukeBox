@@ -1,0 +1,150 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-15 12:42+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:5
+msgid "Inicio"
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:24
+msgid "Bienvenido a"
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:25
+msgid "Tu música favorita"
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:26
+msgid "Descubre Bandas"
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:42
+msgid "Explora géneros"
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:43
+msgid "Estilos Musicales"
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:43
+msgid "Rock, Pop, Metal y más"
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:44
+msgid "Ver Estilos"
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:60
+msgid "Música del mundo"
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:61
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_lista.html:5
+msgid "Países"
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:61
+msgid "Bandas de todo el mundo"
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:62
+msgid "Explorar Países"
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:93
+msgid "Ver Banda"
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_detalle.html:6
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_detalle.html:36
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_lista.html:30
+msgid "País"
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_detalle.html:47
+msgid "Código"
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_detalle.html:57
+#, python-format
+msgid "Sobre %(pais.nombre)s"
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_detalle.html:58
+#, python-format
+msgid ""
+"%(pais.nombre)s es la cuna de diversas bandas y artistas que han dejado su "
+"huella en la música mundial. Explora las bandas de este país y descubre su "
+"contribución a diferentes géneros musicales."
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_detalle.html:63
+#, python-format
+msgid "Bandas de %(pais.nombre)s"
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_detalle.html:74
+msgid "Volver a Países"
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_detalle.html:88
+msgid "Escucha ahora"
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_detalle.html:89
+#, python-format
+msgid "Música de %(pais.nombre)s"
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_detalle.html:117
+msgid "No hay canciones disponibles para este país."
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_detalle.html:123
+msgid "Otros países"
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_lista.html:6
+msgid "Explora los países"
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_lista.html:41
+#, python-format
+msgid "Código: %(code)s"
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_lista.html:44
+#, python-format
+msgid "%(band_count)s banda"
+msgid_plural "%(band_count)s bandas"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_lista.html:52
+#, python-format
+msgid ""
+"Descubre las bandas originarias de %(pais.nombre)s. Explora la rica escena "
+"musical de este país y las bandas que han dejado huella en la historia de la "
+"música."
+msgstr ""
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_lista.html:64
+msgid "Todos los Países"
+msgstr ""

@@ -1,5 +1,8 @@
 {% extends "jukeBoxApp/base.html" %}
 {% load static %}
+{% load i18n %}
+
+{% block title %}Juke Box - {% trans "Inicio" %}{% endblock %}
 
 {% block breadcumb_area %}
 {# No mostrar breadcrumb en la página de inicio #}
@@ -18,9 +21,9 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="hero-slides-content text-center">
-                            <h6 data-animation="fadeInUp" data-delay="100ms">Bienvenido a</h6>
-                            <h2 data-animation="fadeInUp" data-delay="300ms">Juke Box <span>Tu música favorita</span></h2>
-                            <a data-animation="fadeInUp" data-delay="500ms" href="{% url 'banda_lista' %}" class="btn oneMusic-btn mt-50">Descubre Bandas <i class="fa fa-angle-double-right"></i></a>
+                            <h6 data-animation="fadeInUp" data-delay="100ms">{% trans "Bienvenido a" %}</h6>
+                            <h2 data-animation="fadeInUp" data-delay="300ms">Juke Box <span>{% trans "Tu música favorita" %}</span></h2>
+                            <a data-animation="fadeInUp" data-delay="500ms" href="{% url 'banda_lista' %}" class="btn oneMusic-btn mt-50">{% trans "Descubre Bandas" %} <i class="fa fa-angle-double-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -36,9 +39,9 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="hero-slides-content text-center">
-                            <h6 data-animation="fadeInUp" data-delay="100ms">Explora géneros</h6>
-                            <h2 data-animation="fadeInUp" data-delay="300ms">Estilos Musicales <span>Rock, Pop, Metal y más</span></h2>
-                            <a data-animation="fadeInUp" data-delay="500ms" href="{% url 'estilo_lista' %}" class="btn oneMusic-btn mt-50">Ver Estilos <i class="fa fa-angle-double-right"></i></a>
+                            <h6 data-animation="fadeInUp" data-delay="100ms">{% trans "Explora géneros" %}</h6>
+                            <h2 data-animation="fadeInUp" data-delay="300ms">{% trans "Estilos Musicales" %} <span>{% trans "Rock, Pop, Metal y más" %}</span></h2>
+                            <a data-animation="fadeInUp" data-delay="500ms" href="{% url 'estilo_lista' %}" class="btn oneMusic-btn mt-50">{% trans "Ver Estilos" %} <i class="fa fa-angle-double-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -54,9 +57,9 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="hero-slides-content text-center">
-                            <h6 data-animation="fadeInUp" data-delay="100ms">Música del mundo</h6>
-                            <h2 data-animation="fadeInUp" data-delay="300ms">Países <span>Bandas de todo el mundo</span></h2>
-                            <a data-animation="fadeInUp" data-delay="500ms" href="{% url 'pais_lista' %}" class="btn oneMusic-btn mt-50">Explorar Países <i class="fa fa-angle-double-right"></i></a>
+                            <h6 data-animation="fadeInUp" data-delay="100ms">{% trans "Música del mundo" %}</h6>
+                            <h2 data-animation="fadeInUp" data-delay="300ms">{% trans "Países" %} <span>{% trans "Bandas de todo el mundo" %}</span></h2>
+                            <a data-animation="fadeInUp" data-delay="500ms" href="{% url 'pais_lista' %}" class="btn oneMusic-btn mt-50">{% trans "Explorar Países" %} <i class="fa fa-angle-double-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -87,7 +90,7 @@
                             <a href="{% url 'pais_detalle' banda.pais_origen.id %}" class="event-place">{{ banda.pais_origen.nombre }}</a>
                             <a href="#" class="event-date">{{ banda.anio_formacion }}</a>
                         </div>
-                        <a href="{% url 'banda_detalle' banda.id %}" class="btn see-more-btn">Ver Banda</a>
+                        <a href="{% url 'banda_detalle' banda.id %}" class="btn see-more-btn">{% trans "Ver Banda" %}</a>
                     </div>
                 </div>
             </div>

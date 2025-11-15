@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'jukeBox.urls'
@@ -104,13 +105,24 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
 USE_TZ = True
+
+# Supported languages
+LANGUAGES = [
+	('es', 'Español'),
+	('en', 'English'),
+    ('fr', 'Français'),
+]
+
+LOCALE_PATHS = [
+	BASE_DIR / 'locale',
+]
 
 
 # Static files (CSS, JavaScript, Images)

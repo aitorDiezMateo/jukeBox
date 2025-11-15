@@ -1,8 +1,9 @@
 {% extends "jukeBoxApp/base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block breadcumb_title %}{{ pais.nombre }}{% endblock %}
-{% block breadcumb_subtitle %}País{% endblock %}
+{% block breadcumb_subtitle %}{% trans "País" %}{% endblock %}
 {% block breadcumb_style %}background-image: url({% static 'img/bg-img/breadcumb3.jpg' %});{% endblock %}
 
 {% block content %}
@@ -32,7 +33,7 @@
                                         <i class="fa fa-flag"></i>
                                     </div>
                                     <div class="info-content">
-                                        <h6>País</h6>
+                                        <h6>{% trans "País" %}</h6>
                                         <p>{{ pais.nombre }}</p>
                                     </div>
                                 </div>
@@ -43,7 +44,7 @@
                                         <i class="fa fa-code"></i>
                                     </div>
                                     <div class="info-content">
-                                        <h6>Código</h6>
+                                        <h6>{% trans "Código" %}</h6>
                                         <p>{{ pais.codigo }}</p>
                                     </div>
                                 </div>
@@ -53,13 +54,13 @@
 
                     <!-- Description -->
                     <div class="band-description mb-50">
-                        <h4 class="mb-30">Sobre {{ pais.nombre }}</h4>
-                        <p>{{ pais.nombre }} es la cuna de diversas bandas y artistas que han dejado su huella en la música mundial. Explora las bandas de este país y descubre su contribución a diferentes géneros musicales.</p>
+                        <h4 class="mb-30">{% blocktrans trimmed %}Sobre {{ pais.nombre }}{% endblocktrans %}</h4>
+                        <p>{% blocktrans trimmed %}{{ pais.nombre }} es la cuna de diversas bandas y artistas que han dejado su huella en la música mundial. Explora las bandas de este país y descubre su contribución a diferentes géneros musicales.{% endblocktrans %}</p>
                     </div>
 
                     <!-- Bandas Section -->
                     <div class="band-styles mb-50">
-                        <h4 class="mb-30">Bandas de {{ pais.nombre }}</h4>
+                        <h4 class="mb-30">{% blocktrans trimmed %}Bandas de {{ pais.nombre }}{% endblocktrans %}</h4>
                         <div class="styles-tags">
                             {% for banda in pais.banda_set.all %}
                             <a href="{% url 'banda_detalle' banda.id %}" class="style-tag">{{ banda.nombre }}</a>
@@ -70,7 +71,7 @@
                     <!-- Back Button -->
                     <div class="back-to-list">
                         <a href="{% url 'pais_lista' %}" class="btn oneMusic-btn">
-                            <i class="fa fa-angle-left"></i> Volver a Países
+                            <i class="fa fa-angle-left"></i> {% trans "Volver a Países" %}
                         </a>
                     </div>
 
@@ -84,8 +85,8 @@
                     <!-- Songs Widget -->
                     <div class="new-hits-area mb-100">
                         <div class="section-heading text-left mb-50">
-                            <p>Escucha ahora</p>
-                            <h5>Música de {{ pais.nombre }}</h5>
+                            <p>{% trans "Escucha ahora" %}</p>
+                            <h5>{% blocktrans trimmed %}Música de {{ pais.nombre }}{% endblocktrans %}</h5>
                         </div>
 
                         {% if canciones %}
@@ -113,13 +114,13 @@
                             </div>
                             {% endfor %}
                         {% else %}
-                            <p>No hay canciones disponibles para este país.</p>
+                            <p>{% trans "No hay canciones disponibles para este país." %}</p>
                         {% endif %}
                     </div>
                     <!-- Related Countries Widget -->
                     <div class="single-widget-area mb-30">
                         <div class="widget-title">
-                            <h5>Otros países</h5>
+                            <h5>{% trans "Otros países" %}</h5>
                         </div>
                         <div class="widget-content">
                             <ul>

@@ -1,106 +1,213 @@
 {% extends "jukeBoxApp/base.html" %}
+
 {% load static %}
 
-{% block breadcumb_title %}Mis Favoritos{% endblock %}
-{% block breadcumb_subtitle %}Tus bandas favoritas{% endblock %}
+{% load i18n %}
+
+
+
+{% block breadcumb_title %}{% trans "Mis Favoritos" %}{% endblock %}
+
+{% block breadcumb_subtitle %}{% trans "Tus bandas favoritas" %}{% endblock %}
+
 {% block breadcumb_style %}background-image: url({% static 'img/bg-img/breadcumb3.jpg' %});{% endblock %}
 
+
+
 {% block content %}
+
 <!-- ##### Favoritos Area Start ##### -->
+
 <section class="album-catagory section-padding-100-0 pagina-favoritos">
+
     <div class="container">
+
         <div class="row oneMusic-albums favoritos-container">
+
             <!-- Los favoritos se cargarán dinámicamente con JavaScript -->
+
             <div class="col-12">
+
                 <div class="no-favoritos text-center">
+
                     <i class="fa fa-heart-o"></i>
-                    <h3>Cargando favoritos...</h3>
+
+                    <h3>{% trans "Cargando favoritos..." %}</h3>
+
                 </div>
+
             </div>
+
         </div>
+
         
-        <!-- Sección de Lista de Reproducción -->
+
+        <!-- SecciÃ³n de Lista de ReproducciÃ³n -->
+
         <div class="row">
+
             <div class="col-12">
+
                 <div class="player-playlist-section">
+
                     <div class="player-playlist-header">
-                        <h4>🎵 Lista de Reproducción</h4>
-                        <span class="playlist-count">0 canciones</span>
+
+                        <h4>{% trans "ðµ Lista de ReproducciÃ³n" %}</h4>
+
+                        <span class="playlist-count">0 {% trans "canciones" %}</span>
+
                     </div>
+
                     <div class="player-playlist">
+
                         <div class="text-center" style="padding: 40px;">
-                            <p style="color: #999;">No hay canciones en la lista de reproducción</p>
-                            <p style="font-size: 14px; color: #ccc;">Agrega bandas a favoritos con canciones disponibles</p>
+
+                            <p style="color: #999;">{% trans "No hay canciones en la lista de reproducciÃ³n" %}</p>
+
+                            <p style="font-size: 14px; color: #ccc;">{% trans "Agrega bandas a favoritos con canciones disponibles" %}</p>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
 </section>
+
 <!-- ##### Favoritos Area End ##### -->
 
+
+
 <!-- Reproductor de Audio Mejorado -->
+
 <div class="audio-player-container">
+
     <div class="audio-player-wrapper">
+
         <!-- Información de la Canción -->
+
         <div class="player-song-info">
+
             <img src="{% static 'img/bg-img/a1.jpg' %}" alt="Song Cover" class="player-song-image">
+
             <div class="player-song-details">
-                <h6 class="player-song-title">Selecciona una canción</h6>
-                <p class="player-song-artist">Artista</p>
+
+                <h6 class="player-song-title">{% trans "Selecciona una canciÃ³n" %}</h6>
+
+                <p class="player-song-artist">{% trans "Artista" %}</p>
+
             </div>
+
             <!-- Ecualizador -->
+
             <div class="player-equalizer">
+
                 <div class="eq-bar"></div>
+
                 <div class="eq-bar"></div>
+
                 <div class="eq-bar"></div>
+
                 <div class="eq-bar"></div>
+
                 <div class="eq-bar"></div>
+
             </div>
+
         </div>
+
         
+
         <!-- Controles Principales -->
+
         <div class="player-main-controls">
-            <!-- Controles de Reproducción -->
+
+            <!-- Controles de ReproducciÃ³n -->
+
             <div class="player-controls">
-                <button class="player-btn player-prev-btn" title="Anterior">
+
+                <button class="player-btn player-prev-btn" title="{% trans 'Anterior' %}">
+
                     <i class="fa fa-step-backward"></i>
+
                 </button>
-                <button class="player-btn player-play-btn" title="Reproducir/Pausar">
+
+                <button class="player-btn player-play-btn" title="{% trans 'Reproducir/Pausar' %}">
+
                     <i class="fa fa-play"></i>
+
                 </button>
-                <button class="player-btn player-next-btn" title="Siguiente">
+
+                <button class="player-btn player-next-btn" title="{% trans 'Siguiente' %}">
+
                     <i class="fa fa-step-forward"></i>
+
                 </button>
-                <button class="player-btn player-loop-btn" title="Reproducción continua">
+
+                <button class="player-btn player-loop-btn" title="{% trans 'ReproducciÃ³n continua' %}">
+
                     <i class="fa fa-refresh"></i>
+
                 </button>
+
             </div>
+
             
+
             <!-- Barra de Progreso -->
+
             <div class="player-progress-container">
+
                 <span class="player-time player-current-time">00:00</span>
+
                 <div class="player-progress-bar">
+
                     <div class="player-progress-fill"></div>
+
                 </div>
+
                 <span class="player-time player-total-time">00:00</span>
+
             </div>
+
             
+
             <!-- Control de Volumen -->
+
             <div class="player-volume-control">
+
                 <div class="player-volume-icon">
+
                     <i class="fa fa-volume-up"></i>
+
                 </div>
+
                 <input type="range" class="player-volume-slider" min="0" max="100" value="70">
+
             </div>
+
         </div>
+
     </div>
+
 </div>
 
+
+
 <script>
+
     // Marcar el body como página de favoritos y con reproductor
+
     document.body.classList.add('pagina-favoritos');
+
     document.body.classList.add('has-player');
+
 </script>
+
 {% endblock %}

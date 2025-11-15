@@ -1,8 +1,9 @@
 {% extends "jukeBoxApp/base.html" %}
 {% load static %}
+{% load i18n %}
 
-{% block breadcumb_title %}Países{% endblock %}
-{% block breadcumb_subtitle %}Explora los países{% endblock %}
+{% block breadcumb_title %}{% trans "Países" %}{% endblock %}
+{% block breadcumb_subtitle %}{% trans "Explora los países" %}{% endblock %}
 {% block breadcumb_style %}background-image: url({% static 'img/bg-img/breadcumb3.jpg' %});{% endblock %}
 
 {% block content %}
@@ -26,7 +27,7 @@
                         <!-- Post Date -->
                         <div class="post-date">
                             <span>{{ pais.codigo }}</span>
-                            <span>País</span>
+                            <span>{% trans "País" %}</span>
                         </div>
                     </div>
 
@@ -36,11 +37,19 @@
                         <a href="{% url 'pais_detalle' pais.id %}" class="post-title">{{ pais.nombre }}</a>
                         <!-- Post Meta -->
                         <div class="post-meta d-flex mb-30">
-                            <p class="post-author">Código: {{ pais.codigo }}</p>
-                            <p class="tags">{{ pais.banda_set.count }} bandas</p>
+                            <p class="post-author">
+                                {% blocktrans trimmed with code=pais.codigo %}Código: {{ code }}{% endblocktrans %}
+                            </p>
+                            <p class="tags">
+                                {% blocktrans trimmed count band_count=pais.banda_set.count %}
+                                {{ band_count }} banda
+                                {% plural %}
+                                {{ band_count }} bandas
+                                {% endblocktrans %}
+                            </p>
                         </div>
                         <!-- Post Excerpt -->
-                        <p>Descubre las bandas originarias de {{ pais.nombre }}. Explora la rica escena musical de este país y las bandas que han dejado huella en la historia de la música.</p>
+                        <p>{% blocktrans trimmed %}Descubre las bandas originarias de {{ pais.nombre }}. Explora la rica escena musical de este país y las bandas que han dejado huella en la historia de la música.{% endblocktrans %}</p>
                     </div>
                 </div>
                 {% endfor %}
@@ -52,7 +61,7 @@
                     <!-- Widget Area - Todos los Países -->
                     <div class="single-widget-area mb-30">
                         <div class="widget-title">
-                            <h5>Todos los Países</h5>
+                            <h5>{% trans "Todos los Países" %}</h5>
                         </div>
                         <div class="widget-content">
                             <ul>

@@ -1,8 +1,9 @@
 {% extends "jukeBoxApp/base.html" %}
 {% load static %}
+{% load i18n %}
 
-{% block breadcumb_title %}Sugerir Canción{% endblock %}
-{% block breadcumb_subtitle %}Propon una canción para el catálogo{% endblock %}
+{% block breadcumb_title %}{% trans "Sugerir Canción" %}{% endblock %}
+{% block breadcumb_subtitle %}{% trans "Propon una canción para el catálogo" %}{% endblock %}
 {% block breadcumb_style %}background-image: url({% static 'img/bg-img/breadcumb3.jpg' %});{% endblock %}
 
 {% block content %}
@@ -11,7 +12,7 @@
         <div class="col-12 col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Sugerir Canción</h4>
+                    <h4 class="card-title">{% trans "Sugerir Canción" %}</h4>
                     <form method="post">
                         {% csrf_token %}
                         <div class="form-group">
@@ -33,10 +34,10 @@
                             {{ form.comentario.label_tag }}
                             {{ form.comentario }}
                         </div>
-                        <button type="submit" class="btn btn-success">Enviar sugerencia</button>
+                        <button type="submit" class="btn btn-success">{% trans "Enviar sugerencia" %}</button>
                     </form>
                     <hr>
-                    <p class="small text-muted mt-3">Las sugerencias serán revisadas manualmente.</p>
+                    <p class="small text-muted mt-3">{% trans "Las sugerencias serán revisadas manualmente." %}</p>
                 </div>
             </div>
         </div>

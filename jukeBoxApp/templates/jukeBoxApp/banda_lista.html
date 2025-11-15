@@ -1,8 +1,9 @@
 {% extends "jukeBoxApp/base.html" %}
 {% load static %}
+{% load i18n %}
 
-{% block breadcumb_title %}Lista de Bandas{% endblock %}
-{% block breadcumb_subtitle %}Explora las bandas{% endblock %}
+{% block breadcumb_title %}{% trans "Lista de Bandas" %}{% endblock %}
+{% block breadcumb_subtitle %}{% trans "Explora las bandas" %}{% endblock %}
 {% block breadcumb_style %}background-image: url({% static 'img/bg-img/breadcumb3.jpg' %});{% endblock %}
 
 {% block content %}
@@ -12,7 +13,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="browse-by-catagories catagory-menu d-flex flex-wrap align-items-center mb-70">
-                    <a href="#" data-filter="*">Todas</a>
+                    <a href="#" data-filter="*">{% trans "Todas" %}</a>
                     <a href="#" data-filter=".a" class="active">A</a>
                     <a href="#" data-filter=".b">B</a>
                     <a href="#" data-filter=".c">C</a>
@@ -62,7 +63,7 @@
                                 data-banda-pais="{{ banda.pais_origen.nombre }}"
                                 data-banda-imagen="{% if banda.imagen %}{{ banda.imagen.url }}{% else %}{% static 'img/bg-img/a1.jpg' %}{% endif %}"
                                 data-banda-url="{% url 'banda_detalle' banda.id %}"
-                                title="Agregar a favoritos">
+                                title="{% trans "Agregar a favoritos" %}">
                             <i class="fa fa-heart-o"></i>
                         </button>
                     </div>

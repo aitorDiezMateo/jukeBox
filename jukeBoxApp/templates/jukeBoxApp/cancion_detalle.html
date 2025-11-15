@@ -1,8 +1,9 @@
 {% extends "jukeBoxApp/base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block breadcumb_title %}{{ cancion.titulo }}{% endblock %}
-{% block breadcumb_subtitle %}Ficha de la canción{% endblock %}
+{% block breadcumb_subtitle %}{% trans "Ficha de la canción" %}{% endblock %}
 {% block breadcumb_style %}background-image: url({% static 'img/bg-img/breadcumb3.jpg' %});{% endblock %}
 
 {% block content %}
@@ -10,8 +11,8 @@
     <div class="row">
         <div class="col-12 col-lg-8">
             <h2>{{ cancion.titulo }}</h2>
-            <p><strong>Banda:</strong> <a href="{% url 'banda_detalle' cancion.banda.id %}">{{ cancion.banda.nombre }}</a></p>
-            <p><strong>Año:</strong> {{ cancion.anio_publicacion }}</p>
+            <p><strong>{% trans "Banda:" %}</strong> <a href="{% url 'banda_detalle' cancion.banda.id %}">{{ cancion.banda.nombre }}</a></p>
+            <p><strong>{% trans "Año:" %}</strong> {{ cancion.anio_publicacion }}</p>
 
             {% if cancion.archivo_audio %}
             <audio controls style="width:100%;">
@@ -20,7 +21,7 @@
             {% endif %}
 
             
-            <h4>Deja tu valoración</h4>
+            <h4>{% trans "Deja tu valoración" %}</h4>
             <!-- Load CSS for rating -->
             <link rel="stylesheet" href="{% static 'css/valoracion.css' %}">
 
@@ -30,7 +31,7 @@
                 <input type="hidden" name="puntuacion" id="id_puntuacion" value="">
 
                 <!-- Star rating UI -->
-                <div id="star-rating" class="mb-2" aria-label="Valoración">
+                <div id="star-rating" class="mb-2" aria-label="{% trans 'Valoración' %}">
                     <i class="fa fa-star-o star" data-value="1" aria-hidden="true"></i>
                     <i class="fa fa-star-o star" data-value="2" aria-hidden="true"></i>
                     <i class="fa fa-star-o star" data-value="3" aria-hidden="true"></i>
@@ -38,12 +39,12 @@
                     <i class="fa fa-star-o star" data-value="5" aria-hidden="true"></i>
                 </div>
 
-                <h4>Dejanos tú opinión</h4>
+                <h4>{% trans "Déjanos tu opinión" %}</h4>
 
                 <div class="form-group mt-2">
                     {{ form.comentario }}
                 </div>
-                <button type="submit" class="btn btn-primary">Enviar valoración</button>
+                <button type="submit" class="btn btn-primary">{% trans "Enviar valoración" %}</button>
             </form>
 
             <!-- Load JS for rating interaction -->
@@ -51,9 +52,9 @@
 
             <hr>
 
-            <h4>Valoraciones</h4>
+            <h4>{% trans "Valoraciones" %}</h4>
             {% if promedio %}
-                <p>Media: {{ promedio }} / 5</p>
+                <p>{% trans "Media:" %} {{ promedio }} / 5</p>
             {% endif %}
 
             {% if valoraciones %}
@@ -66,7 +67,7 @@
                 {% endfor %}
                 </ul>
             {% else %}
-                <p>No hay valoraciones aún. Sé el primero en opinar.</p>
+                <p>{% trans "No hay valoraciones aún. Sé el primero en opinar." %}</p>
             {% endif %}
 
             <hr>
@@ -126,7 +127,7 @@
                     form.addEventListener('submit', function(e){
                         if(!input.value || parseInt(input.value) < 1){
                             e.preventDefault();
-                            alert('Por favor selecciona una puntuación (1-5 estrellas) antes de enviar.');
+                            alert('{% trans "Por favor selecciona una puntuación (1-5 estrellas) antes de enviar." %}');
                         }
                     });
                 })();
@@ -136,8 +137,8 @@
         <div class="col-12 col-lg-4">
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5>Sugerir una canción</h5>
-                    <p>¿Tienes una canción para proponer? <a href="{% url 'sugerir_cancion' %}">Hazla llegar aquí</a>.</p>
+                    <h5>{% trans "Sugerir una canción" %}</h5>
+                    <p>{% trans "¿Tienes una canción para proponer?" %} <a href="{% url 'sugerir_cancion' %}">{% trans "Hazla llegar aquí" %}</a>.</p>
                 </div>
             </div>
         </div>

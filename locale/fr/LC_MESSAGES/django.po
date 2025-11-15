@@ -1,0 +1,459 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-15 17:16+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\banda_detalle.html:6
+msgid "Detalles de la banda"
+msgstr "Détails du groupe"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\banda_detalle.html:36
+msgid "País de Origen"
+msgstr "Pays d'origine"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\banda_detalle.html:47
+msgid "Año de Formación"
+msgstr "Année de formation"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\banda_detalle.html:57
+msgid "Sobre la banda"
+msgstr "À propos du groupe"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\banda_detalle.html:63
+#: .\jukeBoxApp\templates\jukeBoxApp\estilo_lista.html:5
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:43
+msgid "Estilos Musicales"
+msgstr "Styles musicaux"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\banda_detalle.html:79
+#: .\jukeBoxApp\templates\jukeBoxApp\banda_lista.html:66
+msgid "Agregar a favoritos"
+msgstr "Ajouter aux favoris"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\banda_detalle.html:81
+msgid "Agregar a Favoritos"
+msgstr "Ajouter aux Favoris"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\banda_detalle.html:88
+msgid "Volver a Bandas"
+msgstr "Retour aux groupes"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\banda_detalle.html:101
+#: .\jukeBoxApp\templates\jukeBoxApp\estilo_detalle.html:77
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_detalle.html:88
+msgid "Escucha ahora"
+msgstr "Écoutez maintenant"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\banda_detalle.html:102
+msgid "Canciones destacadas"
+msgstr "Chansons mises en avant"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\banda_detalle.html:130
+msgid "No hay canciones disponibles para esta banda."
+msgstr "Aucune chanson n'est disponible pour ce groupe."
+
+#: .\jukeBoxApp\templates\jukeBoxApp\banda_detalle.html:136
+msgid "Bandas del mismo país"
+msgstr "Groupes du même pays"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\banda_lista.html:5
+msgid "Lista de Bandas"
+msgstr "Liste des groupes"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\banda_lista.html:6
+msgid "Explora las bandas"
+msgstr "Explorez les groupes"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\banda_lista.html:16
+msgid "Todas"
+msgstr "Toutes"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\base.html:9
+#: .\jukeBoxApp\templates\jukeBoxApp\base.html:124
+#: .\jukeBoxApp\templates\jukeBoxApp\base.html:138
+msgid "Juke Box"
+msgstr "Juke Box"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\base.html:42
+#: .\jukeBoxApp\templates\jukeBoxApp\base.html:76
+#: .\jukeBoxApp\templates\jukeBoxApp\base.html:153
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:61
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_lista.html:5
+msgid "Países"
+msgstr "Pays"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\base.html:55
+msgid "Logo de Juke Box"
+msgstr "Logo de Juke Box"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\base.html:73
+#: .\jukeBoxApp\templates\jukeBoxApp\base.html:150
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:5
+msgid "Inicio"
+msgstr "Accueil"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\base.html:74
+#: .\jukeBoxApp\templates\jukeBoxApp\base.html:151
+msgid "Bandas"
+msgstr "Groupes"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\base.html:75
+#: .\jukeBoxApp\templates\jukeBoxApp\base.html:152
+msgid "Estilos"
+msgstr "Styles"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\base.html:78
+msgid "Favoritos"
+msgstr "Favoris"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\base.html:79
+msgid "Sugerir canción"
+msgstr "Suggérer une chanson"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\base.html:89
+msgid "Selecciona idioma"
+msgstr "Choisir la langue"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\base.html:90
+msgid "Selector de idioma"
+msgstr "Sélecteur de langue"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\base.html:102
+#: .\jukeBoxApp\templates\jukeBoxApp\favoritos.html:9
+msgid "Mis Favoritos"
+msgstr "Mes favoris"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\base.html:123
+msgid "Descubre"
+msgstr "Découvrez"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\base.html:140
+msgid ""
+"Copyright &copy;<script>document.write(new Date().getFullYear());</script> "
+"Juke Box. Todos los derechos reservados | Hecho con <i class=\"fa fa-heart-"
+"o\" aria-hidden=\"true\"></i> por Aitor Diez, Iñigo Peña, Iñigo Eguiluz y "
+"Mateo Perez"
+msgstr ""
+"Copyright &copy;<script>document.write(new Date().getFullYear());</script> "
+"Juke Box. Tous droits rÃ©servÃ©s | RÃ©alisÃ© avec <i class=\"fa fa-heart-o\" "
+"aria-hidden=\"true\"></i> par Aitor Diez, IÃ±igo PeÃ±a, IÃ±igo Eguiluz et "
+"Mateo Perez"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\cancion_detalle.html:6
+msgid "Ficha de la canción"
+msgstr "informations sur la chanson"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\cancion_detalle.html:14
+msgid "Banda:"
+msgstr "Groupe:"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\cancion_detalle.html:15
+msgid "Año:"
+msgstr "Année:"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\cancion_detalle.html:24
+msgid "Deja tu valoración"
+msgstr "Laissez votre note"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\cancion_detalle.html:34
+#| msgid "Valoraciones"
+msgid "Valoración"
+msgstr "Notes"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\cancion_detalle.html:42
+#| msgid "Dejanos tu opinión"
+msgid "Déjanos tu opinión"
+msgstr "Laissez-nous votre avis"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\cancion_detalle.html:47
+msgid "Enviar valoración"
+msgstr "Envoyer l'avis"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\cancion_detalle.html:55
+msgid "Valoraciones"
+msgstr "Notes"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\cancion_detalle.html:57
+msgid "Media:"
+msgstr "MoyenneÂ :"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\cancion_detalle.html:70
+msgid "No hay valoraciones aún. Sé el primero en opinar."
+msgstr ""
+"Aucun avis pour le moment. Soyez le premier à donner votre avis sur ce "
+"produit."
+
+#: .\jukeBoxApp\templates\jukeBoxApp\cancion_detalle.html:130
+#| msgid ""
+#| "Por favor selecciona una puntuaci\\u00f3n (1-5 estrellas) antes de enviar."
+msgid "Por favor selecciona una puntuación (1-5 estrellas) antes de enviar."
+msgstr "Veuillez sÃ©lectionner une note (1-5 Ã©toiles) avant d'envoyer."
+
+#: .\jukeBoxApp\templates\jukeBoxApp\cancion_detalle.html:140
+msgid "Sugerir una canción"
+msgstr "SuggÃ©rer une chanson"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\cancion_detalle.html:141
+msgid "¿Tienes una canción para proponer?"
+msgstr "Avez-vous des chansons à suggérer ?"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\cancion_detalle.html:141
+msgid "Hazla llegar aquí"
+msgstr "Obtenez-le ici"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\estilo_detalle.html:6
+#: .\jukeBoxApp\templates\jukeBoxApp\estilo_detalle.html:36
+msgid "Estilo Musical"
+msgstr "Style musical"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\estilo_detalle.html:46
+msgid "Sobre el estilo"
+msgstr "À propos du style"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\estilo_detalle.html:52
+msgid "Bandas de este estilo"
+msgstr "Groupes de ce style"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\estilo_detalle.html:63
+msgid "Volver a Estilos"
+msgstr "Retour aux styles"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\estilo_detalle.html:78
+#, python-format
+msgid "Canciones de %(estilo.nombre)s"
+msgstr "Chansons de %(estilo.nombre)s"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\estilo_detalle.html:106
+msgid "No hay canciones disponibles para este estilo."
+msgstr "Aucune chanson n'est disponible pour ce style."
+
+#: .\jukeBoxApp\templates\jukeBoxApp\estilo_detalle.html:113
+msgid "Otros estilos musicales"
+msgstr "Autres styles musicaux"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\estilo_lista.html:6
+msgid "Explora los estilos"
+msgstr "Explorez les styles"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\estilo_lista.html:30
+msgid "Estilo"
+msgstr "Style"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\estilo_lista.html:40
+msgid "Género Musical"
+msgstr "Genre musical"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\estilo_lista.html:42
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_lista.html:44
+#, python-format
+msgid "%(band_count)s banda"
+msgid_plural "%(band_count)s bandas"
+msgstr[0] "%(band_count)s groupe"
+msgstr[1] "%(band_count)s groupes"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\estilo_lista.html:55
+msgid ""
+"Descubre las bandas de este estilo musical. Explora la diversidad y riqueza "
+"de este género que ha marcado la historia de la música."
+msgstr ""
+"Découvrez les groupes de ce style musical. Explorez la diversité et la "
+"richesse de ce genre qui a marqué l'histoire de la musique."
+
+#: .\jukeBoxApp\templates\jukeBoxApp\estilo_lista.html:69
+msgid "Todos los Estilos"
+msgstr "Tous les styles"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\favoritos.html:11
+msgid "Tus bandas favoritas"
+msgstr "Tes groupes prÃ©fÃ©rÃ©s"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\favoritos.html:35
+msgid "Cargando favoritos..."
+msgstr "Chargement des favoris..."
+
+#: .\jukeBoxApp\templates\jukeBoxApp\favoritos.html:55
+msgid "ðµ Lista de ReproducciÃ³n"
+msgstr "ðµ Liste de lecture"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\favoritos.html:57
+msgid "canciones"
+msgstr "chansons"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\favoritos.html:65
+msgid "No hay canciones en la lista de reproducciÃ³n"
+msgstr "Aucune chanson dans la liste de lecture"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\favoritos.html:67
+msgid "Agrega bandas a favoritos con canciones disponibles"
+msgstr "Ajoutez des groupes à vos favoris avec des chansons disponibles."
+
+#: .\jukeBoxApp\templates\jukeBoxApp\favoritos.html:101
+msgid "Selecciona una canciÃ³n"
+msgstr "SÃ©lectionne une chanson"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\favoritos.html:103
+msgid "Artista"
+msgstr "Artiste"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\favoritos.html:135
+msgid "Anterior"
+msgstr "Précédent"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\favoritos.html:141
+msgid "Reproducir/Pausar"
+msgstr "Lecture/Pause"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\favoritos.html:147
+msgid "Siguiente"
+msgstr "Suivant"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\favoritos.html:153
+msgid "ReproducciÃ³n continua"
+msgstr "Lecture en boucle"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:24
+msgid "Bienvenido a"
+msgstr "Bienvenue à"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:25
+msgid "Tu música favorita"
+msgstr "Votre musique préférée"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:26
+msgid "Descubre Bandas"
+msgstr "Découvrez des groupes"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:42
+msgid "Explora géneros"
+msgstr "Explorez les genres"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:43
+msgid "Rock, Pop, Metal y más"
+msgstr "Rock, Pop, Metal et plus encore"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:44
+msgid "Ver Estilos"
+msgstr "Voir les styles"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:60
+msgid "Música del mundo"
+msgstr "Musique du monde"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:61
+msgid "Bandas de todo el mundo"
+msgstr "Groupes du monde entier"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:62
+msgid "Explorar Países"
+msgstr "Explorer les pays"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\index.html:93
+msgid "Ver Banda"
+msgstr "Voir le groupe"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_detalle.html:6
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_detalle.html:36
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_lista.html:30
+msgid "País"
+msgstr "Pays"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_detalle.html:47
+msgid "Código"
+msgstr "Code"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_detalle.html:57
+#, python-format
+msgid "Sobre %(pais.nombre)s"
+msgstr "À propos de %(pais.nombre)s"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_detalle.html:58
+#, python-format
+msgid ""
+"%(pais.nombre)s es la cuna de diversas bandas y artistas que han dejado su "
+"huella en la música mundial. Explora las bandas de este país y descubre su "
+"contribución a diferentes géneros musicales."
+msgstr ""
+"%(pais.nombre)s est le berceau de nombreux groupes et artistes qui ont "
+"marqué la musique mondiale. Explorez les groupes de ce pays et découvrez "
+"leur contribution aux différents genres musicaux."
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_detalle.html:63
+#, python-format
+msgid "Bandas de %(pais.nombre)s"
+msgstr "Groupes de %(pais.nombre)s"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_detalle.html:74
+msgid "Volver a Países"
+msgstr "Retour aux pays"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_detalle.html:89
+#, python-format
+msgid "Música de %(pais.nombre)s"
+msgstr "Musique de %(pais.nombre)s"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_detalle.html:117
+msgid "No hay canciones disponibles para este país."
+msgstr "Aucune chanson n'est disponible pour ce pays."
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_detalle.html:123
+msgid "Otros países"
+msgstr "Autres pays"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_lista.html:6
+msgid "Explora los países"
+msgstr "Explorez les pays"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_lista.html:41
+#, python-format
+msgid "Código: %(code)s"
+msgstr "Code : %(code)s"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_lista.html:52
+#, python-format
+msgid ""
+"Descubre las bandas originarias de %(pais.nombre)s. Explora la rica escena "
+"musical de este país y las bandas que han dejado huella en la historia de la "
+"música."
+msgstr ""
+"Découvrez les groupes originaires de %(pais.nombre)s. Explorez la riche "
+"scène musicale de ce pays et les groupes qui ont marqué l'histoire de la "
+"musique."
+
+#: .\jukeBoxApp\templates\jukeBoxApp\pais_lista.html:64
+msgid "Todos los Países"
+msgstr "Tous les pays"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\sugerir_cancion.html:5
+#: .\jukeBoxApp\templates\jukeBoxApp\sugerir_cancion.html:15
+msgid "Sugerir Canción"
+msgstr "Suggérer une chanson"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\sugerir_cancion.html:6
+msgid "Propon una canción para el catálogo"
+msgstr "Proposez une chanson pour le catalogue"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\sugerir_cancion.html:37
+msgid "Enviar sugerencia"
+msgstr "Envoyer la suggestion"
+
+#: .\jukeBoxApp\templates\jukeBoxApp\sugerir_cancion.html:40
+msgid "Las sugerencias serán revisadas manualmente."
+msgstr "Les suggestions seront examinées manuellement."
+
+#~| msgid "Valoraciones"
+#~ msgid "Valoraci\\u00f3n"
+#~ msgstr "Notes"

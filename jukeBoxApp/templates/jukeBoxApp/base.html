@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    {% load static %}
+    {% load static i18n %}
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Juke Box</title>
+    <title>{% trans "Juke Box" %}</title>
     
     <!-- Favicon -->
     <link rel="icon" href="{% static 'img/core-img/favicon.ico' %}">
@@ -25,7 +25,6 @@
     <link rel="stylesheet" href="{% static 'css/reproductor.css' %}">
 </head>
 <body>
-    {% load static %}
     <!-- Preloader -->
     <div class="preloader d-flex align-items-center justify-content-center">
         <div class="lds-ellipsis">
@@ -40,7 +39,8 @@
         <a href="{% url 'index' %}">Inicio</a> |
         <a href="{% url 'banda_lista' %}">Bandas</a> |
         <a href="{% url 'estilo_lista' %}">Estilos</a> |
-        <a href="{% url 'pais_lista' %}">Países</a>
+                                    <li><a href="{% url 'pais_lista' %}">{% trans "Países" %}</a></li>
+
     </nav> -->
     <!-- ##### Header Area Start ##### -->
     <header class="header-area">
@@ -52,7 +52,7 @@
                     <nav class="classy-navbar justify-content-between" id="oneMusicNav">
 
                         <!-- Nav brand -->
-                        <a href="{% url 'index' %}" class="nav-brand"><img src="{% static 'img/core-img/logo.png' %}" alt="Logo de Juke Box"></a>
+                        <a href="{% url 'index' %}" class="nav-brand"><img src="{% static 'img/core-img/logo.png' %}" alt="{% trans "Logo de Juke Box" %}"></a>
 
                         <!-- Navbar Toggler -->
                         <div class="classy-navbar-toggler">
@@ -70,18 +70,36 @@
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
-                                    <li><a href="{% url 'index' %}">Inicio</a></li>
-                                    <li><a href="{% url 'banda_lista' %}">Bandas</a></li>
-                                    <li><a href="{% url 'estilo_lista' %}">Estilo</a></li>
-                                    <li><a href="{% url 'pais_lista' %}">Países</a></li>
-                                    <li><a href="{% url 'favoritos' %}">Favoritos</a></li>
-                                    <li><a href="{% url 'sugerir_cancion' %}">Sugerir canción</a></li>
+                                    <li><a href="{% url 'index' %}">{% trans "Inicio" %}</a></li>
+                                    <li><a href="{% url 'banda_lista' %}">{% trans "Bandas" %}</a></li>
+                                    <li><a href="{% url 'estilo_lista' %}">{% trans "Estilos" %}</a></li>
+                                    <li><a href="{% url 'pais_lista' %}">{% trans "Países" %}</a></li>
+
+                                    <li><a href="{% url 'favoritos' %}">{% trans "Favoritos" %}</a></li>
+                                    <li><a href="{% url 'sugerir_cancion' %}">{% trans "Sugerir canción" %}</a></li>
                                 </ul>
+
+                                <!-- Language Selector (Da algunos problemas) -->
+                                {% get_current_language as LANGUAGE_CODE %}
+                                {% get_available_languages as LANGUAGES %}
+                                {% get_language_info_list for LANGUAGES as language_list %}
+                                <form action="{% url 'set_language' %}" method="post" class="d-flex align-items-center" style="margin-left: 1rem;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                                    <label for="language-selector" class="sr-only">{% trans 'Selecciona idioma' %}</label>
+                                    <select id="language-selector" name="language" class="form-control" onchange="this.form.submit()" aria-label="{% trans 'Selector de idioma' %}">
+                                        {% for language in language_list %}
+                                            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                                                {{ language.name_local|capfirst }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </form>
 
                                 <!-- Contador de Favoritos -->
                                 <div class="login-register-cart-button d-flex align-items-center">
                                     <div class="favoritos-badge">
-                                        <a href="{% url 'favoritos' %}" title="Mis Favoritos">
+                                        <a href="{% url 'favoritos' %}" title="{% trans "Mis Favoritos" %}">
                                             <i class="fa fa-heart"></i>
                                             <span class="favoritos-counter">0</span>
                                         </a>
@@ -102,8 +120,8 @@
     {% block breadcumb_area %}
     <section class="breadcumb-area bg-img bg-overlay" style="{% block breadcumb_style %}background-image: url({% static 'img/bg-img/breadcumb3.jpg' %});{% endblock %}">
         <div class="bradcumbContent">
-            <p>{% block breadcumb_subtitle %}Descubre{% endblock %}</p>
-            <h2>{% block breadcumb_title %}Juke Box{% endblock %}</h2>
+            <p>{% block breadcumb_subtitle %}{% trans "Descubre" %}{% endblock %}</p>
+            <h2>{% block breadcumb_title %}{% trans "Juke Box" %}{% endblock %}</h2>
         </div>
     </section>
     {% endblock breadcumb_area %}
@@ -117,20 +135,23 @@
         <div class="container">
             <div class="row d-flex flex-wrap align-items-center">
                 <div class="col-12 col-md-6">
-                    <a href="{% url 'index' %}"><img src="{% static 'img/core-img/logoFooter.png' %}" alt="Juke Box"></a>
+                    <a href="{% url 'index' %}"><img src="{% static 'img/core-img/logoFooter.png' %}" alt="{% trans "Juke Box" %}"></a>
                     <p class="copywrite-text">
+                        {% blocktrans trimmed %}
                         Copyright &copy;<script>document.write(new Date().getFullYear());</script> Juke Box.
                         Todos los derechos reservados | Hecho con <i class="fa fa-heart-o" aria-hidden="true"></i> por Aitor Diez, Iñigo Peña, Iñigo Eguiluz y Mateo Perez
+                        {% endblocktrans %}
                     </p>
                 </div>
 
                 <div class="col-12 col-md-6">
                     <div class="footer-nav">
                         <ul>
-                            <li><a href="{% url 'index' %}">Inicio</a></li>
-                            <li><a href="{% url 'banda_lista' %}">Bandas</a></li>
-                            <li><a href="{% url 'estilo_lista' %}">Estilos</a></li>
-                            <li><a href="{% url 'pais_lista' %}">Países</a></li>
+                            <li><a href="{% url 'index' %}">{% trans "Inicio" %}</a></li>
+                            <li><a href="{% url 'banda_lista' %}">{% trans "Bandas" %}</a></li>
+                            <li><a href="{% url 'estilo_lista' %}">{% trans "Estilos" %}</a></li>
+                            <li><a href="{% url 'pais_lista' %}">{% trans "Países" %}</a></li>
+
                         </ul>
                     </div>
                 </div>

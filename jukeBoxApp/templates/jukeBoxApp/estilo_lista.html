@@ -1,8 +1,9 @@
 {% extends "jukeBoxApp/base.html" %}
 {% load static %}
+{% load i18n %}
 
-{% block breadcumb_title %}Estilos Musicales{% endblock %}
-{% block breadcumb_subtitle %}Explora los estilos{% endblock %}
+{% block breadcumb_title %}{% trans "Estilos Musicales" %}{% endblock %}
+{% block breadcumb_subtitle %}{% trans "Explora los estilos" %}{% endblock %}
 {% block breadcumb_style %}background-image: url({% static 'img/bg-img/breadcumb3.jpg' %});{% endblock %}
 
 {% block content %}
@@ -26,7 +27,7 @@
                         <!-- Post Date -->
                         <div class="post-date">
                             <span>{{ forloop.counter }}</span>
-                            <span>Estilo</span>
+                            <span>{% trans "Estilo" %}</span>
                         </div>
                     </div>
 
@@ -36,11 +37,24 @@
                         <a href="{% url 'estilo_detalle' estilo.id %}" class="post-title">{{ estilo.nombre }}</a>
                         <!-- Post Meta -->
                         <div class="post-meta d-flex mb-30">
-                            <p class="post-author">Género Musical</p>
-                            <p class="tags">{{ estilo.banda_set.count }} bandas</p>
+                            <p class="post-author">{% trans "Género Musical" %}</p>
+                            <p class="tags">
+                                {% blocktrans trimmed count band_count=estilo.banda_set.count %}
+                                {{ band_count }} banda
+                                {% plural %}
+                                {{ band_count }} bandas
+                                {% endblocktrans %}
+                                </p>
                         </div>
                         <!-- Post Excerpt -->
-                        <p>{{ estilo.descripcion|default:"Descubre las bandas de este estilo musical. Explora la diversidad y riqueza de este género que ha marcado la historia de la música." }}</p>
+                        
+                        <p>
+                            {% if estilo.descripcion %}
+                                {{ estilo.descripcion }}
+                            {% else %}
+                                {% trans "Descubre las bandas de este estilo musical. Explora la diversidad y riqueza de este género que ha marcado la historia de la música." %}
+                            {% endif %}
+                        </p>
                     </div>
                 </div>
                 {% endfor %}
@@ -52,7 +66,7 @@
                     <!-- Widget Area - Todos los Estilos -->
                     <div class="single-widget-area mb-30">
                         <div class="widget-title">
-                            <h5>Todos los Estilos</h5>
+                            <h5>{% trans "Todos los Estilos" %}</h5>
                         </div>
                         <div class="widget-content">
                             <ul>
