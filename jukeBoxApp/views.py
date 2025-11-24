@@ -1,149 +1,162 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
+from django.views.generic import TemplateView, ListView, DetailView, FormView, View
 from .models import Banda, EstiloMusical, Pais, Cancion, Valoracion, Sugerencia
 from .forms import ValoracionForm, SugerenciaForm
 
 # Create your views here.
 
-def index(request):
-    # Obtener una banda por país
-    paises = Pais.objects.all()
-    bandas_destacadas = []
-    for pais in paises:
-        banda = Banda.objects.filter(pais_origen=pais).first()
-        if banda:
-            bandas_destacadas.append(banda)
-    
-    return render(request, 'jukeBoxApp/index.html', {
-        'bandas_destacadas': bandas_destacadas
-    })
+class IndexView(TemplateView):
+    template_name = 'jukeBoxApp/index.html'
 
-def banda_lista(request):
-    bandas = Banda.objects.all()
-    return render(request, 'jukeBoxApp/banda_lista.html', {'bandas': bandas})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Obtener una banda por país
+        paises = Pais.objects.all()
+        bandas_destacadas = []
+        for pais in paises:
+            banda = Banda.objects.filter(pais_origen=pais).first()
+            if banda:
+                bandas_destacadas.append(banda)
 
-def banda_detalle(request, pk):
-    banda = get_object_or_404(Banda, pk=pk)
-    canciones = banda.canciones.all()[:3]  # Obtener las 3 canciones de la banda
-    return render(request, 'jukeBoxApp/banda_detalle.html', {
-        'banda': banda,
-        'canciones': canciones
-    })
+        context['bandas_destacadas'] = bandas_destacadas
+        return context
 
-def estilo_lista(request):
-    estilos = EstiloMusical.objects.all()
-    return render(request, 'jukeBoxApp/estilo_lista.html', {'estilos': estilos})
+class BandaListView(ListView):
+    model = Banda
+    template_name = 'jukeBoxApp/banda_lista.html'
+    context_object_name = 'bandas'
 
-def estilo_detalle(request, pk):
-    estilo = get_object_or_404(EstiloMusical, pk=pk)
-    estilos_relacionados = EstiloMusical.objects.exclude(pk=pk)[:5]
-    
-    # Obtener bandas que tienen este estilo
-    bandas_con_estilo = estilo.banda_set.all()
-    
-    # Obtener canciones de estas bandas de forma aleatoria
-    canciones = Cancion.objects.filter(banda__in=bandas_con_estilo).order_by('?')[:3]
-    
-    return render(request, 'jukeBoxApp/estilo_detalle.html', {
-        'estilo': estilo,
-        'estilos_relacionados': estilos_relacionados,
-        'canciones': canciones
-    })
+class BandaDetailView(DetailView):
+    model = Banda
+    template_name = 'jukeBoxApp/banda_detalle.html'
+    context_object_name = 'banda'
 
-def pais_lista(request):
-    paises = Pais.objects.all()
-    return render(request, 'jukeBoxApp/pais_lista.html', {'paises': paises})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['canciones'] = self.object.canciones.all()[:3]  # Obtener las 3 canciones de la banda
+        return context
 
-def pais_detalle(request, pk):
-    pais = get_object_or_404(Pais, pk=pk)
-    paises_relacionados = Pais.objects.exclude(pk=pk)[:5]
-    
-    # Obtener bandas de este país
-    bandas_del_pais = pais.banda_set.all()
-    
-    # Obtener canciones de estas bandas de forma aleatoria
-    canciones = Cancion.objects.filter(banda__in=bandas_del_pais).order_by('?')[:3]
-    
-    return render(request, 'jukeBoxApp/pais_detalle.html', {
-        'pais': pais,
-        'paises_relacionados': paises_relacionados,
-        'canciones': canciones
-    })
+class EstiloListView(ListView):
+    model = EstiloMusical
+    template_name = 'jukeBoxApp/estilo_lista.html'
+    context_object_name = 'estilos'
 
-def favoritos(request):
+class EstiloDetailView(DetailView):
+    model = EstiloMusical
+    template_name = 'jukeBoxApp/estilo_detalle.html'
+    context_object_name = 'estilo'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['estilos_relacionados'] = EstiloMusical.objects.exclude(pk=self.object.pk)[:5]
+
+        # Obtener bandas que tienen este estilo
+        bandas_con_estilo = self.object.banda_set.all()
+
+        # Obtener canciones de estas bandas de forma aleatoria
+        context['canciones'] = Cancion.objects.filter(banda__in=bandas_con_estilo).order_by('?')[:3]
+        return context
+
+class PaisListView(ListView):
+    model = Pais
+    template_name = 'jukeBoxApp/pais_lista.html'
+    context_object_name = 'paises'
+
+class PaisDetailView(DetailView):
+    model = Pais
+    template_name = 'jukeBoxApp/pais_detalle.html'
+    context_object_name = 'pais'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['paises_relacionados'] = Pais.objects.exclude(pk=self.object.pk)[:5]
+
+        # Obtener bandas de este país
+        bandas_del_pais = self.object.banda_set.all()
+
+        # Obtener canciones de estas bandas de forma aleatoria
+        context['canciones'] = Cancion.objects.filter(banda__in=bandas_del_pais).order_by('?')[:3]
+        return context
+
+class FavoritosView(TemplateView):
+    template_name = 'jukeBoxApp/favoritos.html'
     # La página de favoritos se maneja completamente con JavaScript y localStorage
     # Esta vista solo renderiza la plantilla
-    return render(request, 'jukeBoxApp/favoritos.html')
 
 
-def cancion_detalle(request, pk):
-    cancion = get_object_or_404(Cancion, pk=pk)
-    valoraciones = cancion.valoraciones.order_by('-creado')
+class CancionDetailView(DetailView):
+    model = Cancion
+    template_name = 'jukeBoxApp/cancion_detalle.html'
+    context_object_name = 'cancion'
 
-    # Calcular media de puntuaciones
-    puntuaciones = cancion.valoraciones.all().values_list('puntuacion', flat=True)
-    promedio = None
-    if puntuaciones:
-        promedio = round(sum(puntuaciones) / len(puntuaciones), 2)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['valoraciones'] = self.object.valoraciones.order_by('-creado')
 
-    if request.method == 'POST':
+        # Calcular media de puntuaciones
+        puntuaciones = self.object.valoraciones.all().values_list('puntuacion', flat=True)
+        promedio = None
+        if puntuaciones:
+            promedio = round(sum(puntuaciones) / len(puntuaciones), 2)
+        context['promedio'] = promedio
+        context['form'] = ValoracionForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
         form = ValoracionForm(request.POST)
         if form.is_valid():
             valor = form.save(commit=False)
-            valor.cancion = cancion
+            valor.cancion = self.object
             valor.save()
-            return redirect('cancion_detalle', pk=cancion.pk)
-    else:
-        form = ValoracionForm()
+            return redirect('cancion_detalle', pk=self.object.pk)
 
-    return render(request, 'jukeBoxApp/cancion_detalle.html', {
-        'cancion': cancion,
-        'valoraciones': valoraciones,
-        'promedio': promedio,
-        'form': form,
-    })
+        context = self.get_context_data()
+        context['form'] = form
+        return self.render_to_response(context)
 
 
-def sugerir_cancion(request):
-    if request.method == 'POST':
-        form = SugerenciaForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('sugerir_cancion')
-    else:
-        form = SugerenciaForm()
+class SugerirCancionView(FormView):
+    template_name = 'jukeBoxApp/sugerir_cancion.html'
+    form_class = SugerenciaForm
+    success_url = '/sugerir/'  # This will redirect to the same page
 
-    return render(request, 'jukeBoxApp/sugerir_cancion.html', {'form': form})
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
 
-def api_canciones_favoritos(request):
+class ApiCancionesFavoritosView(View):
     # API para obtener canciones de bandas favoritas
-    ids = request.GET.get('ids', '')
-    
-    if not ids:
-        return JsonResponse({'canciones': []})
-    
-    try:
-        # Convertir IDs a lista de enteros
-        banda_ids = [int(id.strip()) for id in ids.split(',') if id.strip()]
-        
-        # Obtener canciones de esas bandas
-        canciones = Cancion.objects.filter(
-            banda__id__in=banda_ids,
-            archivo_audio__isnull=False
-        ).select_related('banda')[:50]  # Límite de 50 canciones
-        
-        # Convertir a formato JSON
-        canciones_data = []
-        for cancion in canciones:
-            canciones_data.append({
-                'titulo': cancion.titulo,
-                'banda': cancion.banda.nombre,
-                'imagen': cancion.banda.imagen.url if cancion.banda.imagen else '',
-                'archivo': cancion.archivo_audio.url if cancion.archivo_audio else '',
-                'duracion': '3:45'  # Podrías calcular esto del archivo
-            })
-        
-        return JsonResponse(canciones_data, safe=False)
-    
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=400)
+
+    def get(self, request):
+        ids = request.GET.get('ids', '')
+
+        if not ids:
+            return JsonResponse({'canciones': []})
+
+        try:
+            # Convertir IDs a lista de enteros
+            banda_ids = [int(id.strip()) for id in ids.split(',') if id.strip()]
+
+            # Obtener canciones de esas bandas
+            canciones = Cancion.objects.filter(
+                banda__id__in=banda_ids,
+                archivo_audio__isnull=False
+            ).select_related('banda')[:50]  # Límite de 50 canciones
+
+            # Convertir a formato JSON
+            canciones_data = []
+            for cancion in canciones:
+                canciones_data.append({
+                    'titulo': cancion.titulo,
+                    'banda': cancion.banda.nombre,
+                    'imagen': cancion.banda.imagen.url if cancion.banda.imagen else '',
+                    'archivo': cancion.archivo_audio.url if cancion.archivo_audio else '',
+                    'duracion': '3:45'  # Podrías calcular esto del archivo
+                })
+
+            return JsonResponse(canciones_data, safe=False)
+
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
