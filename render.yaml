@@ -1,8 +1,8 @@
 databases:
-  - name: jukeBoxdb
+  - name: jukeboxdb
     plan: free
-    databaseName: dbjukeBox
-    user: jukeBox
+    databaseName: dbjukebox
+    user: jukebox
 
 services:
   - type: web
