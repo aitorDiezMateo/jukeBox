@@ -46,9 +46,9 @@
             </div>
         </div>
 
-        <div class="row oneMusic-albums">
+        <div id="band-list" class="row oneMusic-albums">
             {% for banda in bandas %}
-            <!-- Single Album -->
+            <!-- Single Album (initial) -->
             <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item {{ banda.nombre.0|lower }}">
                 <div class="single-album">
                     <div class="album-thumb-wrapper">
@@ -77,6 +77,31 @@
             </div>
             {% endfor %}
         </div>
+
+        <div id="loading-indicator" class="loading-spinner-container" style="display:none;">
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+                <p class="loading-text">{% trans "Cargando más bandas..." %}</p>
+            </div>
+        </div>
+
+        <!-- Sentinel element for infinite scroll -->
+        <div id="infinite-sentinel" style="height:1px;"></div>
     </div>
 </section>
+<!-- ##### Album Catagory Area End ##### -->
+
+<!-- Configuración para el script de infinite scroll -->
+<div id="band-list-config" 
+     data-api-url="{% url 'api_bandas' %}"
+     data-default-thumb="{% static 'img/bg-img/a1.jpg' %}"
+     data-add-favorites-text="{% trans 'Agregar a favoritos' %}"
+     style="display:none;">
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<!-- Script de infinite scroll -->
+<script src="{% static 'js/banda-infinite-scroll.js' %}"></script>
 {% endblock %}

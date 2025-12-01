@@ -174,5 +174,8 @@
     <script src="{% static 'js/favoritos.js' %}"></script>
     <!-- Reproductor -->
     <script src="{% static 'js/reproductor.js' %}"></script>
+    
+    <!-- Scripts adicionales por página -->
+    {% block extra_scripts %}{% endblock %}
 </body>
 </html>

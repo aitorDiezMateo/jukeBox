@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 from django.http import JsonResponse
 from django.views.generic import TemplateView, ListView, DetailView, FormView, View
 from .models import Banda, EstiloMusical, Pais, Cancion, Valoracion, Sugerencia
@@ -26,6 +27,10 @@ class BandaListView(ListView):
     model = Banda
     template_name = 'jukeBoxApp/banda_lista.html'
     context_object_name = 'bandas'
+    
+    def get_queryset(self):
+        # Render only the first page of bands on initial load (max 6)
+        return Banda.objects.all()[:6]
 
 class BandaDetailView(DetailView):
     model = Banda
@@ -160,3 +165,43 @@ class ApiCancionesFavoritosView(View):
 
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
+
+
+class ApiBandasView(View):
+    """API que devuelve bandas paginadas en JSON para infinite scroll."""
+    def get(self, request):
+        try:
+            page = int(request.GET.get('page', 1))
+            page_size = int(request.GET.get('page_size', 6))
+        except ValueError:
+            return JsonResponse({'bands': [], 'has_more': False})
+
+        filter_q = request.GET.get('filter', '')
+
+        qs = Banda.objects.select_related('pais_origen').all().order_by('nombre')
+        if filter_q and filter_q != '*':
+            if filter_q == 'number':
+                qs = qs.filter(nombre__regex=r'^[0-9]')
+            else:
+                qs = qs.filter(nombre__istartswith=filter_q)
+
+        # Simple pagination
+        start = (page - 1) * page_size
+        end = start + page_size
+        total = qs.count()
+        items = qs[start:end]
+
+        bands = []
+        for b in items:
+            rel_url = reverse('banda_detalle', args=[b.id])
+            bands.append({
+                'id': b.id,
+                'nombre': b.nombre,
+                'pais': b.pais_origen.nombre if b.pais_origen else '',
+                'imagen': b.imagen.url if b.imagen else '',
+                'url': rel_url
+            })
+
+        has_more = end < total
+
+        return JsonResponse({'bands': bands, 'has_more': has_more})

@@ -1,4 +1,4 @@
-// Reproductor de Audio Mejorado
+// Reproductor de Audio Mejorado (Corregido)
 (function($) {
     'use strict';
 
@@ -10,6 +10,7 @@
         this.isPlaying = false;
         this.isContinuous = false;
         this.volume = 0.7;
+        this.isSeeking = false;
         this.init();
     }
 
@@ -17,6 +18,13 @@
         init: function() {
             this.audio = new Audio();
             this.audio.volume = this.volume;
+            
+            // DEBUG: Escuchar cuando el audio se reinicia
+            const self = this;
+            this.audio.addEventListener('emptied', function() {
+                // console.warn('⚠️ AUDIO EMPTIED - El audio fue vaciado!');
+            });
+            
             this.setupEventListeners();
         },
 
@@ -42,6 +50,15 @@
                 }
             });
 
+            // DEBUG events
+            this.audio.addEventListener('seeking', function() {
+                // console.log('📍 Evento SEEKING');
+            });
+            
+            this.audio.addEventListener('seeked', function() {
+                // console.log('📍 Evento SEEKED');
+            });
+
             // Control de play/pause
             $(document).on('click', '.player-play-btn', function() {
                 self.togglePlay();
@@ -62,17 +79,63 @@
                 self.toggleContinuous();
             });
 
-            // Barra de progreso
-            $(document).on('click', '.player-progress-bar', function(e) {
-                if (!self.audio.duration) return;
+            // --- CORRECCIÓN BARRA DE PROGRESO ---
+            var progressBar = document.querySelector('.player-progress-bar');
+            if (progressBar) {
+                // Handler para seek corregido
+                var handleSeek = function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    if (!self.audio || !self.audio.duration || isNaN(self.audio.duration)) {
+                        return false;
+                    }
+                    
+                    // CORRECCIÓN PRINCIPAL:
+                    // Siempre usamos la barra principal (progressBar) como referencia,
+                    // nunca e.currentTarget porque eso podría ser el 'fill' (hijo).
+                    var bar = progressBar; 
+                    var rect = bar.getBoundingClientRect();
+                    
+                    // Obtener posición X
+                    var clientX = e.clientX;
+                    if (e.touches && e.touches[0]) {
+                        clientX = e.touches[0].clientX;
+                    }
+                    
+                    var offsetX = clientX - rect.left;
+                    var width = rect.width;
+                    
+                    // Asegurar porcentaje entre 0 y 1
+                    var percentage = Math.max(0, Math.min(1, offsetX / width));
+                    var newTime = self.audio.duration * percentage;
+                    
+                    // console.log('🎵 Seek a:', newTime.toFixed(2) + 's');
+                    
+                    // Cambiar el tiempo
+                    self.audio.currentTime = newTime;
+                    
+                    // Actualizar la barra visual inmediatamente
+                    self.updateProgress();
+                    
+                    return false;
+                };
                 
-                const $progressBar = $(this);
-                const offsetX = e.pageX - $progressBar.offset().left;
-                const width = $progressBar.width();
-                const percentage = Math.max(0, Math.min(1, offsetX / width));
+                // Agregar listeners solo al padre (progressBar)
+                progressBar.addEventListener('mousedown', handleSeek, true);
+                progressBar.addEventListener('touchstart', handleSeek, true);
                 
-                self.seek(percentage);
-            });
+                // Bloquear el click estándar
+                progressBar.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                }, true);
+                
+                console.log('✅ Barra de progreso configurada correctamente');
+            } else {
+                console.warn('⚠️ No se encontró .player-progress-bar');
+            }
 
             // Control de volumen
             $(document).on('input', '.player-volume-slider', function() {
@@ -121,7 +184,6 @@
             this.currentIndex = index;
             const song = this.playlist[index];
 
-            // Si no hay archivo de audio, mostrar error
             if (!song.archivo) {
                 this.showNotification('Esta canción no tiene archivo de audio', 'error');
                 return;
@@ -142,7 +204,7 @@
                 self.startEqualizer();
             }).catch(function(error) {
                 console.error('Error al reproducir:', error);
-                self.showNotification('Error al reproducir la canción', 'error');
+                self.showNotification('Error al reproducir', 'error');
             });
         },
 
@@ -166,7 +228,7 @@
                 this.pause();
             } else {
                 if (this.playlist.length === 0) {
-                    this.showNotification('No hay canciones en la lista', 'info');
+                    this.showNotification('No hay canciones', 'info');
                     return;
                 }
                 if (!this.audio.src) {
@@ -193,16 +255,14 @@
             }
         },
 
+        // Nota: La función seek interna ya no es estrictamente necesaria para el click de la barra
+        // ya que lo manejamos en el evento mousedown, pero se mantiene por si se usa externamente.
         seek: function(percentage) {
             if (!this.audio.duration || isNaN(this.audio.duration)) return;
             
             const newTime = this.audio.duration * percentage;
             this.audio.currentTime = newTime;
-            
-            // Si no estaba reproduciendo, actualizamos la barra visual
-            if (!this.isPlaying) {
-                this.updateProgress();
-            }
+            this.updateProgress();
         },
 
         setVolume: function(volume) {
@@ -210,7 +270,6 @@
             this.audio.volume = volume;
             $('.player-volume-slider').val(volume * 100);
             
-            // Actualizar ícono de volumen
             const $icon = $('.player-volume-icon i');
             if (volume === 0) {
                 $icon.attr('class', 'fa fa-volume-off');
@@ -225,9 +284,7 @@
             this.isContinuous = !this.isContinuous;
             $('.player-loop-btn').toggleClass('active', this.isContinuous);
             
-            const mensaje = this.isContinuous ? 
-                'Reproducción continua activada' : 
-                'Reproducción continua desactivada';
+            const mensaje = this.isContinuous ? 'Loop activado' : 'Loop desactivado';
             this.showNotification(mensaje, 'info');
         },
 
