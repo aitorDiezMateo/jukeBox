@@ -13,4 +13,5 @@ urlpatterns = [
     path('pais/<int:pk>/', views.PaisDetailView.as_view(), name='pais_detalle'),
     path('favoritos/', views.FavoritosView.as_view(), name='favoritos'),
     path('api/canciones-favoritos/', views.ApiCancionesFavoritosView.as_view(), name='api_canciones_favoritos'),
+    path('api/bandas/', views.ApiBandasView.as_view(), name='api_bandas'),
 ]
