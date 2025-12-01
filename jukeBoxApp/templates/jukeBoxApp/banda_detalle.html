@@ -14,13 +14,13 @@
             <!-- Band Info -->
             <div class="col-12 col-lg-8">
                 <div class="band-details-content">
-                    
+
                     <!-- Band Image -->
                     <div class="band-thumbnail mb-50">
                         {% if banda.imagen %}
-                            <img src="{{ banda.imagen.url }}" alt="{{ banda.nombre }}">
+                        <img src="{{ banda.imagen.url }}" alt="{{ banda.nombre }}">
                         {% else %}
-                            <img src="{% static 'img/bg-img/a1.jpg' %}" alt="{{ banda.nombre }}">
+                        <img src="{% static 'img/bg-img/a1.jpg' %}" alt="{{ banda.nombre }}">
                         {% endif %}
                     </div>
 
@@ -34,7 +34,8 @@
                                     </div>
                                     <div class="info-content">
                                         <h6>{% trans "País de Origen" %}</h6>
-                                        <a href="{% url 'pais_detalle' banda.pais_origen.id %}">{{ banda.pais_origen.nombre }}</a>
+                                        <a href="{% url 'pais_detalle' banda.pais_origen.id %}">{{
+                                            banda.pais_origen.nombre }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -70,13 +71,11 @@
 
                     <!-- Botón de Favoritos -->
                     <div class="mb-50">
-                        <button class="btn-favorito btn-favorito-detalle" 
-                                data-banda-id="{{ banda.id }}"
-                                data-banda-nombre="{{ banda.nombre }}"
-                                data-banda-pais="{{ banda.pais_origen.nombre }}"
-                                data-banda-imagen="{% if banda.imagen %}{{ banda.imagen.url }}{% else %}{% static 'img/bg-img/a1.jpg' %}{% endif %}"
-                                data-banda-url="{% url 'banda_detalle' banda.id %}"
-                                title="{% trans "Agregar a favoritos" %}">
+                        <button class="btn-favorito btn-favorito-detalle" data-banda-id="{{ banda.id }}"
+                            data-banda-nombre="{{ banda.nombre }}" data-banda-pais="{{ banda.pais_origen.nombre }}"
+                            data-banda-imagen="{% if banda.imagen %}{{ banda.imagen.url }}{% else %}{% static 'img/bg-img/a1.jpg' %}{% endif %}"
+                            data-banda-url="{% url 'banda_detalle' banda.id %}" title="{% trans " Agregar a favoritos"
+                            %}">
                             <i class="fa fa-heart-o"></i>
                             <span>{% trans "Agregar a Favoritos" %}</span>
                         </button>
@@ -94,7 +93,7 @@
 
             <!-- Sidebar -->
             <div class="col-12 col-lg-4">
-                <div class="band-sidebar">  
+                <div class="band-sidebar">
                     <!-- Songs Widget -->
                     <div class="new-hits-area mb-100">
                         <div class="section-heading text-left mb-50">
@@ -103,31 +102,32 @@
                         </div>
 
                         {% if canciones %}
-                            {% for cancion in canciones %}
-                            <!-- Single Song Item -->
-                            <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="{{ forloop.counter }}00ms">
-                                <div class="first-part d-flex align-items-center">
-                                    <div class="thumbnail">
-                                        {% if banda.imagen %}
-                                            <img src="{{ banda.imagen.url }}" alt="{{ cancion.titulo }}">
-                                        {% else %}
-                                            <img src="{% static 'img/bg-img/wt7.jpg' %}" alt="{{ cancion.titulo }}">
-                                        {% endif %}
-                                    </div>
-                                    <div class="content-">
-                                        <h6><a href="{% url 'cancion_detalle' cancion.id %}">{{ cancion.titulo }}</a></h6>
-                                        <p>{{ banda.nombre }} ({{ cancion.anio_publicacion }})</p>
-                                    </div>
+                        {% for cancion in canciones %}
+                        <!-- Single Song Item -->
+                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
+                            data-wow-delay="{{ forloop.counter }}00ms">
+                            <div class="first-part d-flex align-items-center">
+                                <div class="thumbnail">
+                                    {% if banda.imagen %}
+                                    <img src="{{ banda.imagen.url }}" alt="{{ cancion.titulo }}">
+                                    {% else %}
+                                    <img src="{% static 'img/bg-img/wt7.jpg' %}" alt="{{ cancion.titulo }}">
+                                    {% endif %}
                                 </div>
-                                {% if cancion.archivo_audio %}
-                                <audio preload="auto" controls>
-                                    <source src="{{ cancion.archivo_audio.url }}">
-                                </audio>
-                                {% endif %}
+                                <div class="content-">
+                                    <h6><a href="{% url 'cancion_detalle' cancion.id %}">{{ cancion.titulo }}</a></h6>
+                                    <p>{{ banda.nombre }} ({{ cancion.anio_publicacion }})</p>
+                                </div>
                             </div>
-                            {% endfor %}
+                            {% if cancion.archivo_audio %}
+                            <audio preload="auto" controls>
+                                <source src="{{ cancion.archivo_audio.url }}">
+                            </audio>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
                         {% else %}
-                            <p>{% trans "No hay canciones disponibles para esta banda." %}</p>
+                        <p>{% trans "No hay canciones disponibles para esta banda." %}</p>
                         {% endif %}
                     </div>
                     <!-- Related Bands Widget -->
@@ -138,9 +138,10 @@
                         <div class="widget-content">
                             <ul>
                                 {% for banda_relacionada in banda.pais_origen.banda_set.all|slice:":5" %}
-                                    {% if banda_relacionada.id != banda.id %}
-                                    <li><a href="{% url 'banda_detalle' banda_relacionada.id %}">{{ banda_relacionada.nombre }}</a></li>
-                                    {% endif %}
+                                {% if banda_relacionada.id != banda.id %}
+                                <li><a href="{% url 'banda_detalle' banda_relacionada.id %}">{{ banda_relacionada.nombre
+                                        }}</a></li>
+                                {% endif %}
                                 {% endfor %}
                             </ul>
                         </div>

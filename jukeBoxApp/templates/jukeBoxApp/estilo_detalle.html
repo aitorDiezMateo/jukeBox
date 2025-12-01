@@ -15,13 +15,13 @@
             <!-- Estilo Info -->
             <div class="col-12 col-lg-8">
                 <div class="band-details-content">
-                    
+
                     <!-- Estilo Image -->
                     <div class="band-thumbnail mb-50">
                         {% if estilo.imagen %}
-                            <img src="{{ estilo.imagen.url }}" alt="{{ estilo.nombre }}">
+                        <img src="{{ estilo.imagen.url }}" alt="{{ estilo.nombre }}">
                         {% else %}
-                            <img src="{% static 'img/bg-img/a2.jpg' %}" alt="{{ estilo.nombre }}">
+                        <img src="{% static 'img/bg-img/a2.jpg' %}" alt="{{ estilo.nombre }}">
                         {% endif %}
                     </div>
 
@@ -71,7 +71,7 @@
             <!-- Sidebar -->
             <div class="col-12 col-lg-4">
                 <div class="band-sidebar">
-                    
+
                     <!-- Songs Widget -->
                     <div class="new-hits-area mb-100">
                         <div class="section-heading text-left mb-50">
@@ -80,34 +80,35 @@
                         </div>
 
                         {% if canciones %}
-                            {% for cancion in canciones %}
-                            <!-- Single Song Item -->
-                            <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="{{ forloop.counter }}00ms">
-                                <div class="first-part d-flex align-items-center">
-                                    <div class="thumbnail">
-                                        {% if cancion.banda.imagen %}
-                                            <img src="{{ cancion.banda.imagen.url }}" alt="{{ cancion.titulo }}">
-                                        {% else %}
-                                            <img src="{% static 'img/bg-img/wt7.jpg' %}" alt="{{ cancion.titulo }}">
-                                        {% endif %}
-                                    </div>
-                                    <div class="content-">
-                                        <h6>{{ cancion.titulo }}</h6>
-                                        <p>{{ cancion.banda.nombre }} ({{ cancion.anio_publicacion }})</p>
-                                    </div>
+                        {% for cancion in canciones %}
+                        <!-- Single Song Item -->
+                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
+                            data-wow-delay="{{ forloop.counter }}00ms">
+                            <div class="first-part d-flex align-items-center">
+                                <div class="thumbnail">
+                                    {% if cancion.banda.imagen %}
+                                    <img src="{{ cancion.banda.imagen.url }}" alt="{{ cancion.titulo }}">
+                                    {% else %}
+                                    <img src="{% static 'img/bg-img/wt7.jpg' %}" alt="{{ cancion.titulo }}">
+                                    {% endif %}
                                 </div>
-                                {% if cancion.archivo_audio %}
-                                <audio preload="auto" controls>
-                                    <source src="{{ cancion.archivo_audio.url }}">
-                                </audio>
-                                {% endif %}
+                                <div class="content-">
+                                    <h6><a href="{% url 'cancion_detalle' cancion.id %}">{{ cancion.titulo }}</a></h6>
+                                    <p>{{ cancion.banda.nombre }} ({{ cancion.anio_publicacion }})</p>
+                                </div>
                             </div>
-                            {% endfor %}
+                            {% if cancion.archivo_audio %}
+                            <audio preload="auto" controls>
+                                <source src="{{ cancion.archivo_audio.url }}">
+                            </audio>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
                         {% else %}
-                            <p>{% trans "No hay canciones disponibles para este estilo." %}</p>
+                        <p>{% trans "No hay canciones disponibles para este estilo." %}</p>
                         {% endif %}
                     </div>
-                    
+
                     <!-- Related Styles Widget -->
                     <div class="single-widget-area mb-30">
                         <div class="widget-title">
@@ -116,9 +117,10 @@
                         <div class="widget-content">
                             <ul>
                                 {% for otro_estilo in estilos_relacionados %}
-                                    {% if otro_estilo.id != estilo.id %}
-                                    <li><a href="{% url 'estilo_detalle' otro_estilo.id %}">{{ otro_estilo.nombre }}</a></li>
-                                    {% endif %}
+                                {% if otro_estilo.id != estilo.id %}
+                                <li><a href="{% url 'estilo_detalle' otro_estilo.id %}">{{ otro_estilo.nombre }}</a>
+                                </li>
+                                {% endif %}
                                 {% endfor %}
                             </ul>
                         </div>
