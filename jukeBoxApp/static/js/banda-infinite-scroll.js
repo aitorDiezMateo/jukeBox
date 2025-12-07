@@ -179,8 +179,16 @@
                         $('#band-list').append($items);
                         const $grid = $('.oneMusic-albums');
                         if($grid.data('isotope')){
-                            $grid.isotope('reloadItems').isotope('layout');
+                            $grid.isotope('destroy');
                         }
+                        // Reinicializar Isotope después de cargar nuevos items
+                        $grid.isotope({
+                            itemSelector: '.single-album-item',
+                            percentPosition: true,
+                            masonry: {
+                                columnWidth: '.single-album-item'
+                            }
+                        });
                         page = 1;
                         hasMore = data.has_more || false;
                     });
