@@ -2,8 +2,14 @@
 # Exit on error
 set -o errexit
 
+# Install gettext for compiling translation messages
+apt-get update && apt-get install -y gettext
+
 # Modify this line as needed for your package manager (pip, poetry, etc.)
 pip install -r requirements.txt
+
+# Compile translation messages (required for i18n to work in production)
+python manage.py compilemessages
 
 # Convert static asset files
 python manage.py collectstatic --no-input
