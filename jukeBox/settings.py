@@ -85,6 +85,9 @@ JAZZMIN_SETTINGS = {
 
     "show_ui_builder": True,
     "theme": "darkly",
+    
+    # CSS personalizado para corregir problemas de contraste
+    "custom_css": "css/admin-fixes.css",
 }
 
 JAZZMIN_UI_TWEAKS = {

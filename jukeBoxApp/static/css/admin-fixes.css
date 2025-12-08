@@ -1,0 +1,41 @@
+/* Corrección de estilos para el admin de Django/Jazzmin */
+
+/* Fix para selectores múltiples - asegurar texto legible */
+select[multiple] option,
+.selector select option,
+.selector-available select option,
+.selector-chosen select option {
+    color: #000000 !important;
+    background-color: #ffffff !important;
+}
+
+/* Fix para opciones seleccionadas en selectores múltiples */
+select[multiple] option:checked,
+.selector select option:checked {
+    background-color: #0d6efd !important;
+    color: #ffffff !important;
+}
+
+/* Fix para hover en opciones */
+select[multiple] option:hover,
+.selector select option:hover {
+    background-color: #e9ecef !important;
+    color: #000000 !important;
+}
+
+/* Asegurar que los filtros también sean legibles */
+#changelist-filter li,
+#changelist-filter a {
+    color: #000000 !important;
+}
+
+/* Fix para inputs en el admin */
+.form-control,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea {
+    color: #000000 !important;
+    background-color: #ffffff !important;
+}
