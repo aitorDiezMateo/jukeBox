@@ -10,7 +10,26 @@ apt-get update && apt-get install -y gettext
 pip install -r requirements.txt
 
 # Compilar los mensajes de traducción (necesario para i18n en producción)
-python manage.py compilemessages
+# Evitar que compilemessages recorra la virtualenv (.venv) y los paquetes del sistema,
+# ya que eso puede causar errores en deploys donde la virtualenv está dentro del repo.
+# En su lugar compilamos únicamente los .po del proyecto y de las apps dentro del repo.
+echo "Compilando archivos .po del proyecto (excluyendo .venv)..."
+PO_FILES=$(find . -path './.venv' -prune -o -name "django.po" -print)
+if [ -z "$PO_FILES" ]; then
+    echo "No se han encontrado archivos .po en el proyecto. Saltando compilación.";
+else
+    set -o errexit
+    for po in $PO_FILES; do
+        mo_dir=$(dirname "$po")
+        mo_file="$mo_dir/django.mo"
+        echo "Compilando $po -> $mo_file"
+        msgfmt -o "$mo_file" "$po" || {
+            echo "Error compilando $po";
+            exit 1;
+        }
+    done
+    echo "Compilación de .po completada.";
+fi
 
 # Copiar archivos estáticos
 python manage.py collectstatic --no-input
