@@ -73,8 +73,7 @@
                         <button class="btn-favorito btn-favorito-detalle" data-banda-id="{{ banda.id }}"
                             data-banda-nombre="{{ banda.nombre }}" data-banda-pais="{{ banda.pais_origen.nombre }}"
                             data-banda-imagen="{% if banda.imagen %}{{ banda.imagen.url }}{% else %}{% static 'img/bg-img/a1.jpg' %}{% endif %}"
-                            data-banda-url="{% url 'banda_detalle' banda.id %}" title="{% trans " Agregar a favoritos"
-                            %}">
+                            data-banda-url="{% url 'banda_detalle' banda.id %}" title="{% trans 'Agregar a favoritos' %}">
                             <i class="fa fa-heart-o"></i>
                             <span>{% trans "Agregar a Favoritos" %}</span>
                         </button>
