@@ -33,8 +33,8 @@ class BandaListView(ListView):
     context_object_name = 'bandas'
     
     def get_queryset(self):
-        # Render all bands on initial load with consistent ordering
-        return Banda.objects.all().order_by('nombre')
+        # Render first 12 bands on initial load, infinite scroll will load more
+        return Banda.objects.all().order_by('nombre')[:12]
 
 class BandaDetailView(DetailView):
     model = Banda

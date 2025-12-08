@@ -11,7 +11,7 @@
     (function($){
         // Estado de la aplicación
         let page = 1;
-        const pageSize = 6; // Cargar 6 bandas cada vez
+        const pageSize = 12; // Cargar 12 bandas cada vez
         let isLoading = false;
         let hasMore = true;
         let currentFilter = '*';
@@ -87,30 +87,36 @@
                             loadedBandIds.add(b.id);
                         }
                     });
-                    const $items = $(html);
                     
-                    // Esperar a que las imágenes se carguen antes de actualizar Isotope
-                    $items.imagesLoaded(function(){
-                        $('#band-list').append($items);
-                        const $grid = $('.oneMusic-albums');
-                        if($grid.data('isotope')){ 
-                            $grid.isotope('appended', $items);
-                        }
-                        page = nextPage;
-                    });
+                    if(html){
+                        const $items = $(html);
+                        
+                        // Esperar a que las imágenes se carguen antes de actualizar Isotope
+                        $items.imagesLoaded(function(){
+                            $('#band-list').append($items);
+                            const $grid = $('.oneMusic-albums');
+                            if($grid.data('isotope')){ 
+                                $grid.isotope('appended', $items);
+                            }
+                        });
+                    }
+                    
+                    page = nextPage;
                 }
                 hasMore = data.has_more || false;
+                console.log('✅ Página', nextPage, 'cargada. hasMore:', hasMore);
             })
             .fail(function(xhr, status, error){ 
                 console.error('Error loading bandas:', error); 
             })
             .always(function(){ 
-                // Asegurar que el spinner se vea al menos 800ms
+                // Liberar isLoading inmediatamente para permitir siguiente carga
+                isLoading = false;
+                
+                // Ocultar spinner con pequeño delay solo por estética
                 setTimeout(function(){
-                    isLoading = false;
-                    $('#loading-indicator').fadeOut(400);
-                    console.log('✅ Carga completada');
-                }, 800);
+                    $('#loading-indicator').fadeOut(300);
+                }, 200);
             });
         }
 
@@ -134,8 +140,8 @@
                     });
                 }, {
                     root: null,
-                    rootMargin: '200px', // Reducido para que solo cargue cuando estés más cerca
-                    threshold: 0.1
+                    rootMargin: '400px', // Aumentado para pre-cargar antes de llegar al final
+                    threshold: 0.01 // Más sensible para detectar antes
                 });
                 observer.observe(sentinel);
                 console.log('IntersectionObserver configurado');
@@ -210,11 +216,13 @@
                 console.error('Error loading bandas:', error); 
             })
             .always(function(){ 
-                // Asegurar que el spinner se vea al menos 800ms
+                // Liberar isLoading inmediatamente
+                isLoading = false;
+                
+                // Ocultar spinner con pequeño delay
                 setTimeout(function(){
-                    isLoading = false;
-                    $('#loading-indicator').fadeOut(400);
-                }, 800);
+                    $('#loading-indicator').fadeOut(300);
+                }, 200);
             });
         }
 
@@ -262,9 +270,6 @@
                 });
                 console.log('Bandas iniciales registradas:', loadedBandIds.size);
                 
-                // Todas las bandas están cargadas inicialmente, no hay más páginas
-                hasMore = false;
-                
                 // Inicializar Isotope con filtro "Todas"
                 const $grid = $('.oneMusic-albums');
                 $grid.imagesLoaded(function(){
@@ -277,10 +282,9 @@
                         filter: '*' // Mostrar todas las bandas inicialmente
                     });
                     console.log('Isotope inicializado con filtro: *');
-                    console.log('Infinite scroll deshabilitado - todas las bandas cargadas');
                     
-                    // No iniciar infinite scroll ya que todas las bandas están cargadas
-                    // setupInfiniteScroll();
+                    // Iniciar observador de scroll después de Isotope
+                    setupInfiniteScroll();
                 });
             });
         }
