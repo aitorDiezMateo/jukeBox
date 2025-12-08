@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -64,3 +65,23 @@ class Sugerencia(models.Model):
 
     def __str__(self):
         return f"Sugerencia: {self.titulo} ({self.artista})"
+
+
+class Favorito(models.Model):
+    """
+    Modelo para gestionar favoritos de bandas por usuario.
+    Permite sincronización entre dispositivos y persistencia en backend.
+    """
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favoritos')
+    banda = models.ForeignKey(Banda, on_delete=models.CASCADE, related_name='favoritos')
+    creado = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Favorito"
+        verbose_name_plural = "Favoritos"
+        # Evitar duplicados: un usuario no puede tener la misma banda como favorito dos veces
+        unique_together = ('user', 'banda')
+        ordering = ['-creado']
+
+    def __str__(self):
+        return f"{self.user.username} - {self.banda.nombre}"

@@ -15,6 +15,7 @@
         let isLoading = false;
         let hasMore = true;
         let currentFilter = '*';
+        let loadedBandIds = new Set(); // Rastrear IDs de bandas ya cargadas
         
         // Variables de configuración (se inicializarán en init)
         let apiUrl;
@@ -80,7 +81,11 @@
                 if(data.bands && data.bands.length){
                     let html = '';
                     data.bands.forEach(function(b){ 
-                        html += buildItem(b, true); // true = es nueva, añade animación
+                        // Solo añadir si no está ya cargada
+                        if(!loadedBandIds.has(b.id)){
+                            html += buildItem(b, true); // true = es nueva, añade animación
+                            loadedBandIds.add(b.id);
+                        }
                     });
                     const $items = $(html);
                     
@@ -154,8 +159,9 @@
             page = 0;
             hasMore = true;
             
-            // Vaciar lista actual
+            // Vaciar lista actual y resetear IDs rastreados
             $('#band-list').empty();
+            loadedBandIds.clear();
             isLoading = true;
             $('#loading-indicator').fadeIn(400);
             
@@ -171,7 +177,11 @@
                 if(data.bands && data.bands.length){
                     let html = '';
                     data.bands.forEach(function(b){ 
-                        html += buildItem(b, true); // true = es nueva, añade animación
+                        // Solo añadir si no está ya cargada
+                        if(!loadedBandIds.has(b.id)){
+                            html += buildItem(b, true); // true = es nueva, añade animación
+                            loadedBandIds.add(b.id);
+                        }
                     });
                     const $items = $(html);
                     
@@ -243,13 +253,35 @@
                 }
             })
             .always(function(){
-                // Layout de Isotope
+                // Registrar bandas iniciales del HTML para evitar duplicados
+                $('#band-list .single-album-item').each(function(){
+                    const bandaId = $(this).find('.btn-favorito').data('banda-id');
+                    if(bandaId){
+                        loadedBandIds.add(bandaId);
+                    }
+                });
+                console.log('Bandas iniciales registradas:', loadedBandIds.size);
+                
+                // Todas las bandas están cargadas inicialmente, no hay más páginas
+                hasMore = false;
+                
+                // Inicializar Isotope con filtro "Todas"
                 const $grid = $('.oneMusic-albums');
-                if($grid.data('isotope')){
-                    $grid.isotope('layout');
-                }
-                // Iniciar observador de scroll
-                setupInfiniteScroll();
+                $grid.imagesLoaded(function(){
+                    $grid.isotope({
+                        itemSelector: '.single-album-item',
+                        percentPosition: true,
+                        masonry: {
+                            columnWidth: '.single-album-item'
+                        },
+                        filter: '*' // Mostrar todas las bandas inicialmente
+                    });
+                    console.log('Isotope inicializado con filtro: *');
+                    console.log('Infinite scroll deshabilitado - todas las bandas cargadas');
+                    
+                    // No iniciar infinite scroll ya que todas las bandas están cargadas
+                    // setupInfiniteScroll();
+                });
             });
         }
 

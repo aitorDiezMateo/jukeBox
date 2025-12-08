@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Pais, EstiloMusical, Banda, Cancion
+from .models import Pais, EstiloMusical, Banda, Cancion, Favorito
 from .models import Valoracion, Sugerencia
 
 # Register your models here.
@@ -38,7 +38,22 @@ class EstiloMusicalAdmin(SoloLecturaAdmin):
 @admin.register(Banda)
 class BandaAdmin(SoloLecturaAdmin):
     list_display = ("nombre", "pais_origen", "anio_formacion")
+    search_fields = ("nombre",)
 
 @admin.register(Cancion)
 class CancionAdmin(SoloLecturaAdmin):
     list_display = ("titulo", "banda", "anio_publicacion")
+
+
+@admin.register(Favorito)
+class FavoritoAdmin(admin.ModelAdmin):
+    list_display = ("user", "banda", "creado")
+    list_filter = ("creado", "user")
+    search_fields = ("user__username", "banda__nombre")
+    readonly_fields = ("creado",)
+    autocomplete_fields = ["banda"]
+    
+    def has_add_permission(self, request):
+        # Los usuarios normales no pueden añadir favoritos desde el admin
+        # Solo staff/superusers
+        return request.user.is_staff or request.user.is_superuser

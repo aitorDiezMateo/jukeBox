@@ -23,6 +23,11 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <link rel="stylesheet" href="{% static 'css/favoritos.css' %}">
     <link rel="stylesheet" href="{% static 'css/reproductor.css' %}">
+    
+    <!-- Variables JavaScript para autenticación -->
+    <script>
+        window.userAuthenticated = {% if user.is_authenticated %}true{% else %}false{% endif %};
+    </script>
 </head>
 <body>
     <!-- Preloader -->

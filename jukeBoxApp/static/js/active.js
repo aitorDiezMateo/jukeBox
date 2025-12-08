@@ -101,6 +101,11 @@
     // :: 4.0 Masonary Gallery Active Code
     if ($.fn.imagesLoaded) {
         $('.oneMusic-albums').imagesLoaded(function () {
+            // Skip Isotope initialization if banda-infinite-scroll.js is handling it
+            if ($('#band-list-config').length > 0) {
+                return; // Let banda-infinite-scroll.js handle Isotope
+            }
+            
             // filter items on button click
             $('.catagory-menu').on('click', 'a', function () {
                 var filterValue = $(this).attr('data-filter');

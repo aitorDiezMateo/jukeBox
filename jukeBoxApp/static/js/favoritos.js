@@ -1,13 +1,27 @@
-// Sistema de Favoritos con LocalStorage
+// Sistema de Favoritos con LocalStorage y Backend
 (function($) {
     'use strict';
 
+    // Verificar si el usuario está autenticado (variable global desde template)
+    const isAuthenticated = typeof window.userAuthenticated !== 'undefined' && window.userAuthenticated;
+
     // Objeto para manejar los favoritos
     const Favoritos = {
+        // Obtener CSRF token para peticiones POST
+        getCsrfToken: function() {
+            return document.querySelector('[name=csrfmiddlewaretoken]')?.value || '';
+        },
+
         // Obtener todos los favoritos del localStorage
         obtenerFavoritos: function() {
-            const favoritos = localStorage.getItem('bandasFavoritas');
-            return favoritos ? JSON.parse(favoritos) : [];
+            try {
+                const favoritos = localStorage.getItem('bandasFavoritas');
+                return favoritos ? JSON.parse(favoritos) : [];
+            } catch(e) {
+                console.warn('Favoritos localStorage corruptos, reseteando.', e);
+                localStorage.removeItem('bandasFavoritas');
+                return [];
+            }
         },
 
         // Guardar favoritos en localStorage
@@ -44,6 +58,9 @@
 
         // Toggle favorito (agregar o quitar)
         toggleFavorito: function(bandaData) {
+            // Normalizar ID a número
+            bandaData.id = Number(bandaData.id) || 0;
+            
             if (this.esFavorito(bandaData.id)) {
                 this.quitarFavorito(bandaData.id);
                 return false; // Se quitó
@@ -51,6 +68,95 @@
                 this.agregarFavorito(bandaData);
                 return true; // Se agregó
             }
+        },
+
+        // Toggle favorito con sincronización backend
+        toggleFavoritoConBackend: function(bandaData) {
+            bandaData.id = Number(bandaData.id) || 0;
+            const esFavorito = this.esFavorito(bandaData.id);
+            
+            if (isAuthenticated) {
+                // Si está autenticado, usar backend
+                return fetch('/api/favoritos/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': this.getCsrfToken()
+                    },
+                    body: JSON.stringify({ banda_id: bandaData.id })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.action === 'added') {
+                        // Añadir también a localStorage para sincronización
+                        this.agregarFavorito(bandaData);
+                        return true;
+                    } else if (data.action === 'removed') {
+                        this.quitarFavorito(bandaData.id);
+                        return false;
+                    }
+                    throw new Error(data.error || 'Error desconocido');
+                })
+                .catch(error => {
+                    console.error('Error al sincronizar con backend:', error);
+                    // Fallback a localStorage si falla backend
+                    return Promise.resolve(this.toggleFavorito(bandaData));
+                });
+            } else {
+                // Usuario no autenticado: usar solo localStorage
+                return Promise.resolve(this.toggleFavorito(bandaData));
+            }
+        },
+
+        // Sincronizar favoritos de localStorage con backend al login
+        sincronizarConBackend: function() {
+            if (!isAuthenticated) return Promise.resolve();
+            
+            const favoritosLocal = this.obtenerFavoritos();
+            const bandaIds = favoritosLocal.map(b => Number(b.id));
+            
+            if (bandaIds.length === 0) {
+                // Si no hay favoritos locales, cargar los del servidor
+                return this.cargarDesdeBackend();
+            }
+            
+            // Enviar IDs locales al servidor para sincronizar
+            return fetch('/api/favoritos/sincronizar/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': this.getCsrfToken()
+                },
+                body: JSON.stringify({ banda_ids: bandaIds })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Sincronización completada:', data);
+                // Cargar todos los favoritos del servidor
+                return this.cargarDesdeBackend();
+            })
+            .catch(error => {
+                console.error('Error al sincronizar favoritos:', error);
+            });
+        },
+
+        // Cargar favoritos desde backend y actualizar localStorage
+        cargarDesdeBackend: function() {
+            if (!isAuthenticated) return Promise.resolve();
+            
+            return fetch('/api/favoritos/')
+                .then(response => response.json())
+                .then(favoritos => {
+                    if (Array.isArray(favoritos)) {
+                        // Actualizar localStorage con datos del servidor
+                        this.guardarFavoritos(favoritos);
+                        actualizarContadorFavoritos();
+                        return favoritos;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al cargar favoritos desde backend:', error);
+                });
         },
 
         // Obtener cantidad de favoritos
@@ -159,24 +265,30 @@
             url: $boton.data('banda-url')
         };
         
-        // Toggle favorito
-        const agregado = Favoritos.toggleFavorito(bandaData);
+        // Toggle favorito con sincronización backend
+        const togglePromise = Favoritos.toggleFavoritoConBackend(bandaData);
         
-        // Actualizar estado visual
-        actualizarEstadoBoton($boton, agregado);
-        
-        // Animar botón
-        animarBotonFavorito($boton, agregado);
-        
-        // Actualizar contador
-        actualizarContadorFavoritos();
-        
-        // Si estamos en la página de favoritos, actualizar la vista
-        if ($('body').hasClass('pagina-favoritos')) {
-            setTimeout(function() {
-                cargarFavoritosEnPagina();
-            }, 300);
-        }
+        // Manejar resultado (puede ser Promise o valor directo)
+        Promise.resolve(togglePromise).then(agregado => {
+            // Actualizar estado visual
+            actualizarEstadoBoton($boton, agregado);
+            
+            // Animar botón
+            animarBotonFavorito($boton, agregado);
+            
+            // Actualizar contador
+            actualizarContadorFavoritos();
+            
+            // Si estamos en la página de favoritos, actualizar la vista
+            if ($('body').hasClass('pagina-favoritos')) {
+                setTimeout(function() {
+                    cargarFavoritosEnPagina();
+                }, 300);
+            }
+        }).catch(error => {
+            console.error('Error al manejar favorito:', error);
+            mostrarNotificacion('Error al guardar favorito', false);
+        });
     });
 
     // Cargar favoritos en la página de favoritos
@@ -232,17 +344,27 @@
 
     // Inicialización cuando el documento está listo
     $(document).ready(function() {
-        // Actualizar contador inicial
-        actualizarContadorFavoritos();
-        
-        // Inicializar estado de botones
-        inicializarBotonesFavoritos();
-        
-        // Si estamos en la página de favoritos, cargar los favoritos
-        if ($('body').hasClass('pagina-favoritos')) {
-            cargarFavoritosEnPagina();
-            // Cargar canciones después de un pequeño delay para que las bandas se carguen primero
-            setTimeout(cargarCancionesFavoritas, 500);
+        // Si el usuario está autenticado, sincronizar favoritos
+        if (isAuthenticated) {
+            Favoritos.sincronizarConBackend().then(() => {
+                // Después de sincronizar, actualizar UI
+                actualizarContadorFavoritos();
+                inicializarBotonesFavoritos();
+                
+                if ($('body').hasClass('pagina-favoritos')) {
+                    cargarFavoritosEnPagina();
+                    setTimeout(cargarCancionesFavoritas, 500);
+                }
+            });
+        } else {
+            // Usuario no autenticado: usar localStorage
+            actualizarContadorFavoritos();
+            inicializarBotonesFavoritos();
+            
+            if ($('body').hasClass('pagina-favoritos')) {
+                cargarFavoritosEnPagina();
+                setTimeout(cargarCancionesFavoritas, 500);
+            }
         }
     });
 
